@@ -1,0 +1,10 @@
+h1 Сессии
+
+ul
+  - sessions.each do |session|
+    li
+      = session.to_s
+      ol
+        - session.visits.each do |visit|
+          li
+            = visit.to_s
