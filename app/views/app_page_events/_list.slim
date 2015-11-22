@@ -1,0 +1,26 @@
+table.table.table-condensed
+  thead
+    tr
+      th Время
+      th Пользователь
+      th Событие
+      th Элемент
+  tbody
+    - events.each do |event|
+      tr
+        td
+          small
+            .text-muted= lt event
+        td
+          div= link_to "u#{event.userId}", app_user_path(event.userId)
+          div= link_to "s#{event.sessionId}", app_user_session_path(event.sessionId)
+          div= link_to "v#{event.visitId}", app_user_visit_path(event.visitId)
+        td
+          = page_event_label(event)
+        td
+          span.label.label-default
+            = event.element
+          em= " #{event.inner_text}"
+          div
+            small.text-muted
+              = humanized_dom_path event.dom_path

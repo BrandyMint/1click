@@ -1,0 +1,10 @@
+- if app_user_visit
+  h1 События на странице визита #{app_user_visit}
+- elsif app_user_session
+  h1 События на страницах сессии #{app_user_session}
+- elsif app_user
+  h1 События на страницах пользователя #{app_user}
+- else
+  h1 События на странице
+
+= render 'list', events: events

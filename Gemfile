@@ -1,8 +1,14 @@
 source 'https://rubygems.org'
 
+source 'https://rails-assets.org' do
+  gem 'rails-assets-tether', '>= 1.1.0'
+end
+
 gem 'pg'
 
 gem 'virtus'
+
+gem 'bootstrap', '~> 4.0.0.alpha1'
 
 gem 'slim-rails'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

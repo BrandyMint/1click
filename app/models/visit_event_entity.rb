@@ -1,7 +1,7 @@
 class VisitEventEntity < BaseEventEntity
   SHORTS = {
     t: :type,    # 0, 1, 2
-    h: :location_hash,
+    h: :fragment,
     p: :path,
     q: :query,
     d: :domain,

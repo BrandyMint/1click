@@ -24,6 +24,7 @@ class CreateDatabase < ActiveRecord::Migration
       t.bigint :userId,    null: false
       t.bigint :sessionId, null: false
       t.integer :visits_count, null: false, default: 0
+      t.integer :page_events_count, null: false, default: 0
 
       t.string  :user_agent
 
@@ -39,7 +40,7 @@ class CreateDatabase < ActiveRecord::Migration
       t.bigint :sessionId, null: false
       t.bigint :visitId,   null: false
 
-      t.string :location_hash
+      t.string :fragment
       t.string :path, null: false
       t.string :query
       t.string :domain, null: false
@@ -52,7 +53,7 @@ class CreateDatabase < ActiveRecord::Migration
       t.string :utm_content
       t.string :utm_campaign
 
-      t.integer :events_count, null: false, default: 0
+      t.integer :page_events_count, null: false, default: 0
 
       t.timestamps null: false
     end
@@ -67,7 +68,7 @@ class CreateDatabase < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    create_table :app_inner_events do |t|
+    create_table :app_page_events do |t|
       t.timestamp :time, null: false
       t.references :app, null: false
       t.bigint :userId, null: false

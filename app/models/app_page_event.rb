@@ -1,17 +1,16 @@
-class AppInnerEvent < ActiveRecord::Base
-
+class AppPageEvent < ActiveRecord::Base
   def to_s
-    "#{created_at} #{type_name} на элементе #{element}"
+    time.to_s
   end
 
   def element
     b = element_tag.dup
     b << "##{element_id}" if element_id.present?
-    b << element_classes.join('.') if element_classes.present?
+    b << '.'+element_classes.join('.') if element_classes.present?
     b
   end
 
-  def type_name
+  def event_name
     case event_type
     when 'click'
       'Кликнул'

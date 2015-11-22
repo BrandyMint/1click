@@ -1,0 +1,27 @@
+table.table.table-condensed
+  thead
+    tr
+      th Время и длительность
+      th Пользователь
+      th Страница
+      th События
+  tbody
+    - visits.each do |visit|
+      tr
+        td
+          small.text-muted
+            div= lt visit
+            div= distance_of_time_in_words visit.updated_at, visit.created_at
+            div= "##{visit.visitId}"
+        td
+          = link_to visit.userId, app_user_path(visit.userId)
+        td
+          = link_to visit.url, target: '_blank'
+          div
+            small.text-muted
+              span= "referer: "
+              = link_to visit.referer, target: '_blank', class: 'text-muted'
+        td
+          = link_to "События (#{visit.page_events_count})", 
+            app_page_events_path(visitId: visit.visitId), 
+            class: 'btn btn-secondary-outline btn-sm'

@@ -1,7 +1,7 @@
-ul
-  li= active_link_to 'Главная', root_path
-  li= active_link_to 'Все события', app_events_path
-  li= active_link_to 'Сессии', app_sessions_path
-  li= active_link_to 'Визиты', app_visits_path
-  li= active_link_to 'Пользователи', app_users_path
-  li= active_link_to 'События на странице', app_inner_events_path
+ul.nav.nav-pills.nav-stacked
+  li.nav-item= active_link_to "Пользователи (#{AppUser.count})", app_users_path, class: 'nav-link'
+  li.nav-item= active_link_to "Сессии (#{AppUserSession.count})", app_user_sessions_path, class: 'nav-link'
+  li.nav-item= active_link_to "Визиты (#{AppUserVisit.count})", app_user_visits_path, class: 'nav-link'
+  li.nav-item= active_link_to "События на странице (#{AppPageEvent.count})", app_page_events_path, class: 'nav-link'
+  li.dropdown-divider
+  li.nav-item= active_link_to "Исходные события (#{AppEvent.count})", app_events_path, class: 'nav-link'

@@ -5,6 +5,10 @@ class EventCreator
     instance.create! params: params, request: request
   end
 
+  def initialize
+    @time = Time.now
+  end
+
   def create!(params:, request:)
 
     # TODO
@@ -20,19 +24,21 @@ class EventCreator
     else
       entities = buildEntities params
       entities.map do |e|
-        create_event! e
+        create_page_event! e
       end
     end
   end
 
   private
 
+  attr_reader :time
+
   def buildEntities(params)
     fail "No suffixed type: #{params}" unless params["t0"].present?
     suffix = 0
     entities = []
     while params["t#{suffix}"].present? do
-      entities << InnerEventEntity.build( params, suffix )
+      entities << PageEventEntity.build( params, suffix )
       suffix += 1
     end
     entities
@@ -58,7 +64,6 @@ class EventCreator
     user = AppUser.create! app_id: vee.appId, userId: vee.userId
 
     create_session! vee, request
-    create_visit! vee
 
     user
   end
@@ -70,8 +75,8 @@ class EventCreator
       sessionId:  vee.sessionId,
       user_agent: request.user_agent
     )
-    AppUser.increment_counter :sessions_count, 1
 
+    increment_user_sessions vee
     update_user vee unless direct
 
     create_visit! vee
@@ -79,17 +84,59 @@ class EventCreator
     session
   end
 
+  def increment_user_sessions(vee)
+    AppUser.connection
+      .exec_query(
+      'update app_users set sessions_count = sessions_count + 1 where app_id = $1 and "userId" = $2',
+      'increment sessions_count',
+      [[nil, vee.appId], [nil, vee.userId]]
+    )
+  end
+
+  def increment_session_visits(vee)
+    AppUserSession.connection
+      .exec_query(
+      'update app_user_sessions set visits_count = visits_count + 1 where app_id = $1 and "userId" = $2 and "sessionId" = $3',
+      'increment visits_count',
+      [[nil, vee.appId], [nil, vee.userId], [nil, vee.sessionId]]
+    )
+  end
+
+  def increment_visit_page_events(vee)
+    AppUserVisit.connection
+      .exec_query(
+      'update app_user_visits set page_events_count = page_events_count + 1 where app_id = $1 and "userId" = $2 and "sessionId" = $3 and "visitId" = $4',
+      'increment page_events_count',
+      [[nil, vee.appId], [nil, vee.userId], [nil, vee.sessionId], [nil, vee.visitId]]
+    )
+    AppUserSession.connection
+      .exec_query(
+      'update app_user_sessions set page_events_count = page_events_count + 1 where app_id = $1 and "userId" = $2 and "sessionId" = $3',
+      'increment page_events_count',
+      [[nil, vee.appId], [nil, vee.userId], [nil, vee.sessionId]]
+    )
+  end
+
   def update_user(vee)
-    AppUser.where(app_id: vee.appId, userId: vee.userId).update_all updated_at: Time.now
+    AppUser.
+      where(app_id: vee.appId, userId: vee.userId).
+      where('updated_at<?', time).
+      update_all updated_at: time
   end
 
   def update_session(vee)
-    AppUserSession.where(app_id: vee.appId, userId: vee.userId, sessionId: vee.sessionId).update_all updated_at: Time.now
+    AppUserSession.
+      where(app_id: vee.appId, userId: vee.userId, sessionId: vee.sessionId).
+      where('updated_at<?', time).
+      update_all updated_at: time
     update_user vee
   end
 
   def update_visit(vee)
-    AppUserVisit.where(app_id: vee.appId, userId: vee.userId, sessionId: vee.sessionId, visitId: vee.visitId).update_all updated_at: Time.now
+    AppUserVisit.
+      where(app_id: vee.appId, userId: vee.userId, sessionId: vee.sessionId, visitId: vee.visitId).
+      where('updated_at<?', time).
+      update_all updated_at: time
     update_session vee
   end
 
@@ -101,7 +148,7 @@ class EventCreator
       sessionId:            vee.sessionId,
       visitId:              vee.visitId,
 
-      location_hash:        vee.location_hash,
+      fragment:             vee.fragment,
       path:                 vee.path,
       query:                vee.query,
       domain:               vee.domain,
@@ -120,13 +167,13 @@ class EventCreator
 
     visit = AppUserVisit.create! attrs
     update_session vee unless direct
-    AppUserSession.increment_counter :visits_count, 1
 
+    increment_session_visits vee
     visit
   end
 
-  def create_event!(vee)
-    event = AppInnerEvent.create!(
+  def create_page_event!(vee)
+    event = AppPageEvent.create!(
       time: vee.timestamp,
 
       app_id:               vee.appId,
@@ -146,6 +193,8 @@ class EventCreator
     )
 
     update_visit vee
+
+    increment_visit_page_events vee
 
     event
   end

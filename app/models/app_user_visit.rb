@@ -2,10 +2,10 @@ class AppUserVisit < ActiveRecord::Base
   belongs_to :app
 
   def to_s
-    "#{created_at} Посетил страницу #{url} из #{referer}. Внутренних событий #{events_count}"
+    visitId.to_s
   end
 
   def url
-    "http://#{domain}/#{path}?#{query}#{location_hash}"
+    URI::HTTP.build host: domain, path: path, query: query, fragment: fragment
   end
 end

@@ -24,8 +24,8 @@ class EventCreatorTest < ActiveSupport::TestCase
 
     entity_click = events.first
     entity_submit = events.second
-    assert_instance_of AppInnerEvent, entity_click
-    assert_instance_of AppInnerEvent, entity_submit
+    assert_instance_of AppPageEvent, entity_click
+    assert_instance_of AppPageEvent, entity_submit
 
     assert_equal 'click', entity_click.event_type
     assert_equal 'submit', entity_submit.event_type
@@ -39,7 +39,7 @@ class EventCreatorTest < ActiveSupport::TestCase
 
     assert_instance_of Array, events
     event = events.first
-    assert_instance_of AppInnerEvent, event
+    assert_instance_of AppPageEvent, event
     assert_instance_of Array, event.element_classes
 
     assert_equal [], event.element_classes

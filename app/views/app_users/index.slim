@@ -1,5 +1,24 @@
 h1 Пользователи
 
-ul
+table.table.table-condensed
+
   - users.each do |user|
-    li= user
+    tr
+      td
+        small.text-muted
+          = lt user
+          div= user
+
+      td
+        = link_to "Сессий (#{user.sessions_count})", 
+          app_user_sessions_path(userId: user.userId), 
+          class: 'btn btn-secondary-outline btn-sm'
+      td
+        = link_to "Визитов (#{user.visits_count})", 
+          app_user_visits_path(userId: user.userId), 
+          class: 'btn btn-secondary-outline btn-sm'
+      td
+        = link_to "Событий на странице (#{user.page_events_count})", 
+          app_page_events_path(userId: user.userId), 
+          class: 'btn btn-secondary-outline btn-sm'
+

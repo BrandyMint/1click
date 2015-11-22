@@ -1,0 +1,8 @@
+- if app_user.present?
+  h1 Визиты пользователя #{app_user}
+- elsif app_user_session.present?
+  h1 Визиты сессии #{app_user_session}
+- else
+  h1 Визиты
+
+= render 'list', visits: visits

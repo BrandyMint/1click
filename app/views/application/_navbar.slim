@@ -1,0 +1,8 @@
+nav.navbar.navbar-dark.bg-inverse
+  = link_to '1ClickAnalycis', root_path, class: 'navbar-brand'
+  .pull-right
+    ul.nav.navbar-nav
+      li.nav-item
+        = link_to 'Удалить все данные', reset_path, method: :delete, class: 'btn btn-sm btn-danger'
+      li.nav-item
+        = snippet_toggle_button

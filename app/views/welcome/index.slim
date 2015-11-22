@@ -1,6 +1,8 @@
+h2 Привет!
 
-Привет!
+= link_to 'пример на другом сайте', 'http://rawgit.com/BrandyMint/aristotel/master/example/test.html'
 
-= link_to 'пример', 'http://rawgit.com/BrandyMint/aristotel/master/example/test.html'
-
-= insert_snippet
+hr
+= form_for 'form', url: '/form', id: 'form-id', class: 'form-class' do |f|
+  = f.text_field :name
+  = f.submit 'SUBMIT'

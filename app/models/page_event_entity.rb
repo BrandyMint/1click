@@ -1,4 +1,4 @@
-class InnerEventEntity < BaseEventEntity # PageEvent
+class PageEventEntity < BaseEventEntity # PageEvent
   SHORTS = {
     t: :type, # slick, submit
     n: :element_tag,

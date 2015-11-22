@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20151106121535) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "app_inner_events", force: :cascade do |t|
+  create_table "app_page_events", force: :cascade do |t|
     t.datetime "time",                                   null: false
     t.integer  "app_id",                                 null: false
     t.integer  "userId",          limit: 8,              null: false
@@ -45,13 +45,14 @@ ActiveRecord::Schema.define(version: 20151106121535) do
   end
 
   create_table "app_user_sessions", force: :cascade do |t|
-    t.integer  "app_id",                             null: false
-    t.integer  "userId",       limit: 8,             null: false
-    t.integer  "sessionId",    limit: 8,             null: false
-    t.integer  "visits_count",           default: 0, null: false
+    t.integer  "app_id",                                  null: false
+    t.integer  "userId",            limit: 8,             null: false
+    t.integer  "sessionId",         limit: 8,             null: false
+    t.integer  "visits_count",                default: 0, null: false
+    t.integer  "page_events_count",           default: 0, null: false
     t.string   "user_agent"
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
   end
 
   add_index "app_user_sessions", ["app_id", "userId", "sessionId"], name: "index_app_user_sessions_on_app_id_and_userId_and_sessionId", using: :btree
@@ -62,7 +63,7 @@ ActiveRecord::Schema.define(version: 20151106121535) do
     t.integer  "userId",               limit: 8,             null: false
     t.integer  "sessionId",            limit: 8,             null: false
     t.integer  "visitId",              limit: 8,             null: false
-    t.string   "location_hash"
+    t.string   "fragment"
     t.string   "path",                                       null: false
     t.string   "query"
     t.string   "domain",                                     null: false
@@ -74,7 +75,7 @@ ActiveRecord::Schema.define(version: 20151106121535) do
     t.string   "utm_term"
     t.string   "utm_content"
     t.string   "utm_campaign"
-    t.integer  "events_count",                   default: 0, null: false
+    t.integer  "page_events_count",              default: 0, null: false
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
   end
