@@ -9,6 +9,7 @@ gem 'pg'
 gem 'virtus'
 
 gem 'bootstrap', '~> 4.0.0.alpha1'
+gem 'semver2'
 
 gem 'slim-rails'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
