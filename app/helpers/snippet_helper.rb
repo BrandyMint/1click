@@ -19,13 +19,20 @@ module SnippetHelper
     session[:snippet] = false
   end
 
+  def snippet_src
+    if Rails.env.production?
+      'http://1clickanalytics.ru/widget.js'
+    else
+      '/widget.js'
+    end
+    # "https://rawgit.com/BrandyMint/aristotel/master/dist/art.js"
+  end
+
   def insert_snippet
     if snippet_on?
-      buffer = render 'snippet', app_id: 1, src: "https://rawgit.com/BrandyMint/aristotel/master/dist/art.js"
-      buffer << 'Сниппет включен'
-      return buffer
+      content_tag :div, 'Сниппет включен', class: 'text-success'
     else
-      return content_tag :div, 'Сниппет отключен', class: 'text-muted'
+      content_tag :div, 'Сниппет отключен', class: 'text-muted'
     end
   end
 end

@@ -20,3 +20,8 @@ html
         .col-sm-12
           hr
           = insert_snippet
+
+
+    - if snippet_on?
+      -# window.art = []; window.art.config={requestUrl: '<url>'}
+      = render 'snippet', app_id: 1, src: snippet_src
