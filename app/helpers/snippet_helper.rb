@@ -7,6 +7,11 @@ module SnippetHelper
     end
   end
 
+  def include_snippet
+    return unless  snippet_on?
+    render 'snippet', app_id: 1, src: snippet_src, requestUrl: snippet_request_url
+  end
+
   def snippet_on?
     session[:snippet]
   end
@@ -17,6 +22,14 @@ module SnippetHelper
 
   def snippet_off!
     session[:snippet] = false
+  end
+
+  def snippet_request_url
+    if Rails.env.production?
+      'http://1clickanalytics.ru/a.png'
+    else
+      root_url + 'a.png'
+    end
   end
 
   def snippet_src
