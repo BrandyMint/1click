@@ -60,6 +60,8 @@ GEM
     bootstrap (4.0.0.alpha1)
       autoprefixer-rails (>= 6.0.3)
       sass (>= 3.4.19)
+    bugsnag (2.8.4)
+      multi_json (~> 1.0)
     builder (3.2.2)
     byebug (8.0.0)
     capistrano (3.4.0)
@@ -311,6 +313,7 @@ DEPENDENCIES
   active_link_to
   bond
   bootstrap (~> 4.0.0.alpha1)
+  bugsnag
   byebug
   capistrano (~> 3.1)
   capistrano-bundler

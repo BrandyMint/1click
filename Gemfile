@@ -8,6 +8,8 @@ gem 'pg'
 
 gem 'virtus'
 
+gem 'bugsnag'
+
 gem 'bootstrap', '~> 4.0.0.alpha1'
 gem 'semver2'
 
