@@ -26,7 +26,7 @@ module SnippetHelper
 
   def snippet_request_url
     if Rails.env.production?
-      'http://1clickanalytics.ru/a.png'
+      'http://cdn.1clickanalytics.ru/a.gif'
     else
       root_url + 'a.png'
     end
