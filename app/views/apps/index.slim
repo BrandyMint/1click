@@ -1,0 +1,5 @@
+h2 Приложения
+
+ul
+  - apps.each do |app|
+    li= link_to app, switch_app_path(app.id)

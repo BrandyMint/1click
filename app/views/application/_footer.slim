@@ -1,0 +1,9 @@
+.container.footer
+  .pull-left
+    = ClickVersion.to_s
+  .pull-right
+    ul.nav.navbar-nav
+      li.nav-item
+        = link_to 'Удалить все данные', reset_path, method: :delete, class: 'btn btn-sm btn-danger'
+      li.nav-item
+        = snippet_toggle_button

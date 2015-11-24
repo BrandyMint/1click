@@ -1,0 +1,26 @@
+- if app_user.present?
+  h3 Сессии пользователя #{app_user}
+- else
+  h3 Сессии
+
+table.table.table-condensed
+  thead
+    tr
+      th Время и длительность
+      th Пользователь
+      th Визиты
+      th События на странице
+  tbody
+    - sessions.each do |session|
+      tr
+        td
+          small.text-muted
+            = lt session
+            div= distance_of_time_in_words session.updated_at, session.created_at
+        td
+          em
+            = link_to session.userId, app_user_path(session.userId)
+        td
+          = link_to session.visits_count, app_user_visits_path(sessionId: session.sessionId)
+        td
+          = link_to session.page_events_count, app_page_events_path(sessionId: session.sessionId)

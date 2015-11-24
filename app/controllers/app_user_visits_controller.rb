@@ -3,12 +3,12 @@ class AppUserVisitsController < ApplicationController
   include AppUserSessionHelper
 
   def index
-    render locals: { visits: app_user_visits }
+    render locals: { visits: current_app_user_visits }
   end
 
   private
 
-  def app_user_visits
+  def current_app_user_visits
     if params[:userId].present?
       scope = AppUserVisit.where userId: params[:userId]
     elsif params[:sessionId].present?

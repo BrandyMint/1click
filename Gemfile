@@ -9,6 +9,11 @@ gem 'pg'
 gem 'virtus'
 
 gem 'bugsnag'
+gem 'settingslogic'
+
+gem 'nprogress-rails'
+
+gem 'sprockets-rails', github: 'rails/sprockets-rails', require: 'sprockets/railtie'
 
 gem 'bootstrap', '~> 4.0.0.alpha1'
 gem 'semver2'

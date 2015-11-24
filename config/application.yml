@@ -1,0 +1,12 @@
+defaults: &defaults
+  tld_length: 1
+
+development:
+  <<: *defaults
+  tld_length: 2
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults

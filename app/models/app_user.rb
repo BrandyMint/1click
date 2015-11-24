@@ -4,11 +4,11 @@ class AppUser < ActiveRecord::Base
   end
 
   def visits
-    @visits = AppUserVisit.where(app_id: app_id, userId: userId).order('time desc')
+    @visits = AppUserVisit.where(app_id: app_id, userId: userId).order('id desc')
   end
 
   def sessions
-    @sessions = AppUserSession.where(app_id: app_id, userId: userId).order('time desc')
+    @sessions = AppUserSession.where(app_id: app_id, userId: userId).order('id desc')
   end
 
   def visits_count
@@ -16,7 +16,7 @@ class AppUser < ActiveRecord::Base
   end
 
   def page_events
-    @page_events = AppPageEvent.where(app_id: app_id, userId: userId).order('time desc')
+    @page_events = AppPageEvent.where(app_id: app_id, userId: userId).order('id desc')
   end
 
   def page_events_count

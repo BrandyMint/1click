@@ -1,0 +1,2 @@
+class EventDefinitionsController < ApplicationController
+end

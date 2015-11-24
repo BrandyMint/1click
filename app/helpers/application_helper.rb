@@ -1,5 +1,12 @@
 module ApplicationHelper
 
+  def app_title
+    buffer = '1ClickAnalytics'
+
+    buffer << ":#{current_app}" if current_app.present?
+    buffer
+  end
+
   def humanized_dom_path(dom_path)
     dom_path.map do |e|
       e.tr(';', '')

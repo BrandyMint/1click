@@ -4,20 +4,20 @@ class AppPageEventsController < ApplicationController
   include AppUserSessionHelper
 
   def index
-    render locals: { events: app_page_events }
+    render locals: { events: current_app_page_events }
   end
 
   private
 
-  def app_page_events
+  def current_app_page_events
     if params[:visitId].present?
-      scope = AppPageEvent.where visitId: params[:visitId]
+      scope = app_page_events.where visitId: params[:visitId]
     elsif params[:sessionId].present?
-      scope = AppPageEvent.where sessionId: params[:sessionId]
+      scope = app_page_events.where sessionId: params[:sessionId]
     elsif params[:userId].present?
-      scope = AppPageEvent.where userId: params[:userId]
+      scope = app_page_events.where userId: params[:userId]
     else
-      scope = AppPageEvent.all
+      scope = app_page_events
     end
     scope.order('created_at desc')
   end
