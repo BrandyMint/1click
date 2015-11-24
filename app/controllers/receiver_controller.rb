@@ -10,7 +10,7 @@ class ReceiverController < ApplicationController
   private
 
   def data
-    params.except(:action, :controller)
+    params.except(:action, :controller, :format)
   end
 end
 
