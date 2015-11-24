@@ -4,7 +4,7 @@ class ReceiverController < ApplicationController
 
     EventCreator.create! params: data, request: request
 
-    send_file Rails.root.join('public/a.gif')
+    send_file Rails.root.join('public/r.gif')
   end
 
   private
