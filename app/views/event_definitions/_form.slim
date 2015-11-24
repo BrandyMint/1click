@@ -1,0 +1,4 @@
+= simple_form_for event_definition, html: { class: 'form-horizontal' }  do |f|
+  = f.input :title
+  = f.input :event_type, collection: event_types_collection, include_blank: false
+  = f.submit 'Сохранить', class: 'btn btn-primary'

@@ -1,5 +1,18 @@
 h2 Приложения
 
-ul
-  - apps.each do |app|
-    li= link_to app, switch_app_path(app.id)
+table.table.table-condensed
+  thead
+    tr
+      th Приложение
+      th Пользователей
+      th Сессий
+      th Визитов
+      th Событий на странице
+  tbody
+    - apps.each do |app|
+      tr
+        td= link_to app, switch_app_path(app.id)
+        td= app.app_users_count
+        td= app.app_user_sessions_count
+        td= app.app_user_visits_count
+        td= app.app_page_events_count

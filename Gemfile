@@ -18,6 +18,20 @@ gem 'sprockets-rails', github: 'rails/sprockets-rails', require: 'sprockets/rail
 gem 'bootstrap', '~> 4.0.0.alpha1'
 gem 'semver2'
 
+
+gem 'cocoon'
+gem 'simple-navigation', git: 'git://github.com/andi/simple-navigation.git'
+gem 'simple-navigation-bootstrap'
+
+gem 'font-awesome-rails'
+gem 'simple_form', git: 'git://github.com/plataformatec/simple_form.git'
+
+# gem 'nested_form'
+# gem 'cocoon'
+
+gem 'kaminari'
+gem 'bootstrap-kaminari-views'
+
 gem 'slim-rails'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.4'

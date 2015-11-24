@@ -7,6 +7,7 @@ class CreateDatabase < ActiveRecord::Migration
 
     create_table :apps do |t|
       t.timestamps null: false
+      t.string :title
     end
 
     create_table :app_users do |t|

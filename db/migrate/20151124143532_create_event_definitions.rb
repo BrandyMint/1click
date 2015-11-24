@@ -4,12 +4,13 @@ class CreateEventDefinitions < ActiveRecord::Migration
       t.references :app,             null: false
       t.string    :title,           null: false
       t.string    :event_type,      null: false
-      t.string    :element_classes, default: [], array: true
+      t.string    :element_classes, default: nil, array: true
       t.string    :element_tag
       t.string    :element_id
       t.string    :href
-      t.string    :dom_path,        default: [], array: true
       t.string    :inner_text
+      t.string    :dom_path,        default: nil, array: true
+      t.integer   :events_count, null: false, default: 0
 
       t.timestamps null: false
     end

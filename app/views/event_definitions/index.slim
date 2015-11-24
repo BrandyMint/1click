@@ -1,0 +1,24 @@
+.row
+  .col-md-9
+    h1 Определения событий (#{app_event_definitions.count})
+  .col-md-3
+    .pull-right
+      = link_to new_event_definition_path, class: 'btn btn-success' do
+        = fa_icon :plus
+
+table.table.table-condensed
+  thead
+    tr
+      th Название
+      th Тип
+      th Событий
+      th
+  tbody
+    - app_event_definitions.order(:id).each do |ed|
+      tr
+        td= ed.title
+        td= ed.event_type
+        td= ed.events_count
+        td
+          = link_to edit_event_definition_path(ed) do
+            = fa_icon :pencil

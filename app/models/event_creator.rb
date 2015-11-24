@@ -11,8 +11,10 @@ class EventCreator
 
   def create!(params:, request:)
 
-    # TODO
-    # AppEvent.transaction do
+    if Rails.env.development?
+      App.find_or_create_by id: params['a']
+    end
+
     AppEvent.create!(
       app_id:     params['a'],
       params:     params,
@@ -174,28 +176,48 @@ class EventCreator
 
   def create_page_event!(vee)
     event = AppPageEvent.create!(
-      time: vee.timestamp,
+      time:            vee.timestamp,
 
-      app_id:               vee.appId,
-      userId:               vee.userId,
-      sessionId:            vee.sessionId,
-      visitId:              vee.visitId,
+      app_id:          vee.appId,
+      userId:          vee.userId,
+      sessionId:       vee.sessionId,
+      visitId:         vee.visitId,
 
-      event_type: vee.type,
+      event_type:      vee.type,
 
       element_classes: vee.element_classes,
-      element_tag: vee.element_tag,
-      element_id: vee.element_id,
+      element_tag:     vee.element_tag,
+      element_id:      vee.element_id,
 
-      dom_path: vee.dom_path,
-      href: vee.href,
-      inner_text: vee.inner_text
+      dom_path:        vee.dom_path,
+      href:            vee.href,
+      inner_text:      vee.inner_text
     )
+
+    consider_event_definition event
 
     update_visit vee
 
     increment_visit_page_events vee
 
     event
+  end
+
+  def consider_event_definition(page_event)
+    event_definitions(page_event).each do |ed|
+      ed.apply! page_event
+    end
+  end
+
+  def event_definitions(page_event)
+    EventDefinition
+      .where(app_id: page_event.app_id, event_type: page_event.event_type)
+      .where('href is null or href = ?', page_event.href)
+      .where('element_tag is null or element_tag = ?', page_event.element_tag)
+      .where('element_id is null or element_id = ?', page_event.element_id)
+      .where('inner_text is null or inner_text = ?', page_event.inner_text)
+    # TODO
+    # .where('element_classes is null or element_classes = ARRAY[?]', page_event.element_classes)
+    # .where('dom_path is null or dom_path = ARRAY[?]', page_event.dom_path)
   end
 end

@@ -1,5 +1,9 @@
 module ApplicationHelper
 
+  def event_types_collection
+    [['Клик', 'click'], ['Форма', 'submit']]
+  end
+
   def app_title
     buffer = '1ClickAnalytics'
 

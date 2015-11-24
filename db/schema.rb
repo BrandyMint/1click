@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151124143532) do
+ActiveRecord::Schema.define(version: 20151124185846) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -95,21 +95,32 @@ ActiveRecord::Schema.define(version: 20151124143532) do
   create_table "apps", force: :cascade do |t|
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.string   "title"
     t.integer  "event_definitions_count", default: 0, null: false
   end
 
+  create_table "event_applies", force: :cascade do |t|
+    t.integer  "app_id",              null: false
+    t.integer  "event_definition_id", null: false
+    t.integer  "app_page_event_id",   null: false
+    t.datetime "time",                null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
   create_table "event_definitions", force: :cascade do |t|
-    t.integer  "app_id",                       null: false
-    t.string   "title",                        null: false
-    t.string   "event_type",                   null: false
-    t.string   "element_classes", default: [],              array: true
+    t.integer  "app_id",                      null: false
+    t.string   "title",                       null: false
+    t.string   "event_type",                  null: false
+    t.string   "element_classes",                          array: true
     t.string   "element_tag"
     t.string   "element_id"
     t.string   "href"
-    t.string   "dom_path",        default: [],              array: true
     t.string   "inner_text"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.string   "dom_path",                                 array: true
+    t.integer  "events_count",    default: 0, null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
 end

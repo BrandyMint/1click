@@ -2,27 +2,26 @@ doctype html
 html
   head
     title 1ClickAnalytics
+    meta charset="utf-8"
+    meta content="width=device-width, initial-scale=1" name="viewport"
+    meta content="ie=edge" http-equiv="x-ua-compatible"
+
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   body
     header
-      .container
-        = render 'navbar'
-    = render 'flashes'
-    .container.content
+      = render 'navbar'
+    .container-fluid.content
+      = render 'flashes'
       .row
         .col-sm-3
           = render 'menu'
         .col-sm-9
           = yield
 
-      .row
-        .col-sm-12
-          hr
-          = insert_snippet
-
 
     = include_snippet
 
+    hr
     = render 'footer'

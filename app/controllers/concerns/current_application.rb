@@ -3,9 +3,20 @@ module CurrentApplication
 
   included do
     helper_method :current_app
+    helper_method :app_users
+    helper_method :app_user_visits
+    helper_method :app_user_sessions
+    helper_method :app_page_events
+    helper_method :app_events
+
+    helper_method :app_event_definitions
   end
 
   private
+
+  def app_event_definitions
+    current_app.event_definitions
+  end
 
   def app_users
     if current_app.present?
