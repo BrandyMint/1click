@@ -1,0 +1,19 @@
+h1= event_definition.title
+
+h2 Пользователи (#{event_definition.users_count})
+
+table.table.table-condensed
+  - event_definition.event_definition_user_applies.each do |edu|
+    tr
+      td= lt edu
+      td
+        = link_to edu.userId, app_user_path(edu.userId)
+
+h2 Событий (#{event_definition.events_count})
+
+
+table.table.table-condensed
+  - event_definition.event_applies.each do |ea|
+    tr
+      td= lt ea
+      td= ea.app_page_event

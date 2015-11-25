@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151124185846) do
+ActiveRecord::Schema.define(version: 20151125171051) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -108,6 +108,18 @@ ActiveRecord::Schema.define(version: 20151124185846) do
     t.datetime "updated_at",          null: false
   end
 
+  create_table "event_definition_user_applies", force: :cascade do |t|
+    t.integer  "event_definition_id",           null: false
+    t.integer  "app_id",                        null: false
+    t.integer  "app_page_event_id",             null: false
+    t.datetime "time",                          null: false
+    t.integer  "userId",              limit: 8, null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
+
+  add_index "event_definition_user_applies", ["event_definition_id", "userId"], name: "edua_uniq", unique: true, using: :btree
+
   create_table "event_definitions", force: :cascade do |t|
     t.integer  "app_id",                      null: false
     t.string   "title",                       null: false
@@ -121,6 +133,7 @@ ActiveRecord::Schema.define(version: 20151124185846) do
     t.integer  "events_count",    default: 0, null: false
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+    t.integer  "users_count",     default: 0, null: false
   end
 
 end

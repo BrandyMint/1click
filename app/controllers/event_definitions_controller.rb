@@ -10,6 +10,10 @@ class EventDefinitionsController < ApplicationController
     render :new, locals: { event_definition: err.record }
   end
 
+  def show
+    render locals: { event_definition: app_event_definitions.find(params[:id]) }
+  end
+
   def new
     render locals: { event_definition: EventDefinition.new }
   end

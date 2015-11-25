@@ -1,6 +1,6 @@
 class AppPageEvent < ActiveRecord::Base
   def to_s
-    time.to_s
+    "#{event_name} #{element} \"#{inner_text}\""
   end
 
   def element

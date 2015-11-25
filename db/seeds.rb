@@ -5,7 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-app = App.find_or_create_by id: 1, title: 'test'
+app = App.find_or_create_by id: 1
 
 app.event_definitions.destroy_all
 

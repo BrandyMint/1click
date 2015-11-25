@@ -12,13 +12,16 @@ table.table.table-condensed
       th Название
       th Тип
       th Событий
+      th Пользователей
       th
   tbody
     - app_event_definitions.order(:id).each do |ed|
       tr
-        td= ed.title
+        td
+          = link_to ed.title, event_definition_path(ed)
         td= ed.event_type
         td= ed.events_count
+        td= ed.users_count
         td
           = link_to edit_event_definition_path(ed) do
             = fa_icon :pencil
