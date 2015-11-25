@@ -1,6 +1,6 @@
 class AppUsersController < ApplicationController
   def index
-    render locals: { users: app_users.order('created_at desc') }
+    render locals: { users: app_users.page(params[:page]).order('created_at desc') }
   end
 
   def show

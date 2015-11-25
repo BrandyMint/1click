@@ -3,7 +3,7 @@ class AppUserVisitsController < ApplicationController
   include AppUserSessionHelper
 
   def index
-    render locals: { visits: current_app_user_visits }
+    render locals: { visits: current_app_user_visits.page(params[:page]) }
   end
 
   private

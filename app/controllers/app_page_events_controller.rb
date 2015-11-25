@@ -4,7 +4,7 @@ class AppPageEventsController < ApplicationController
   include AppUserSessionHelper
 
   def index
-    render locals: { events: current_app_page_events }
+    render locals: { events: current_app_page_events.page(params[:page]) }
   end
 
   private

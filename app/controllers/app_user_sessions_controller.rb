@@ -2,7 +2,7 @@ class AppUserSessionsController < ApplicationController
   include AppUserHelper
 
   def index
-    render locals: { sessions: current_app_user_sessions }
+    render locals: { sessions: current_app_user_sessions.page(params[:page]) }
   end
 
   private

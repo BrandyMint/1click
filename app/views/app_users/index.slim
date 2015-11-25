@@ -19,3 +19,5 @@ table.table.table-condensed
           = link_to "Событий на странице (#{user.page_events_count})", 
             app_page_events_path(userId: user.userId), 
             class: 'btn btn-secondary-outline btn-sm'
+
+= paginate users
