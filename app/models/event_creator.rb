@@ -10,10 +10,7 @@ class EventCreator
   end
 
   def create!(params:, request:)
-
-    if Rails.env.development?
-      App.find_or_create_by id: params['a']
-    end
+    App.find_or_create_by id: params['a']
 
     AppEvent.create!(
       app_id:     params['a'],
