@@ -1,0 +1,10 @@
+= simple_form_for app_funnel, html: { class: 'form-horizontal' }  do |f|
+  = f.input :title
+
+  h4 События
+  = f.simple_fields_for :app_funnel_event_definitions do |fe|
+    = render 'event_definitions', f: fe
+  .links
+    = link_to_add_association 'add', f, :app_funnel_event_definitions
+  = f.submit 'Сохранить', class: 'btn btn-primary'
+

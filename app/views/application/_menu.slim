@@ -6,3 +6,4 @@ ul.nav.nav-pills.nav-stacked
   - if current_app.present?
     li.nav-divider
     li.nav-item= active_link_to "Определения событий (#{app_event_definitions.count})", event_definitions_path, class: 'nav-link'
+    li.nav-item= active_link_to "Воронки (#{app_funnels.count})", app_funnels_path, class: 'nav-link'

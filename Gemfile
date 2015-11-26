@@ -56,6 +56,10 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'active_link_to'
 
+gem 'inherited_resources'
+gem 'responders'
+gem 'has_scope'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

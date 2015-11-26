@@ -8,6 +8,8 @@ class App < ActiveRecord::Base
 
   has_many :event_definitions
 
+  has_many :app_funnels
+
   def to_s
     "app-#{id}"
   end

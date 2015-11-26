@@ -1,0 +1,13 @@
+.row
+  .col-md-9
+    h1 Воронки
+  .col-md-3
+    .pull-right
+      = link_to new_app_funnel_path, class: 'btn btn-success' do
+        = fa_icon :plus
+
+table.table.table-condensed
+  - app_funnels.each do |af|
+    tr
+      td
+        = link_to af.title, app_funnel_path(af)

@@ -24,5 +24,7 @@ Rails.application.routes.draw do
   resources :app_page_events,   only: [:index]
 
   resources :event_definitions
+  resources :app_funnels
+  resources :app_funnel_event_definitions
   # end
 end

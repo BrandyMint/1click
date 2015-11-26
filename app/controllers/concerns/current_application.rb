@@ -10,9 +10,14 @@ module CurrentApplication
     helper_method :app_events
 
     helper_method :app_event_definitions
+    helper_method :app_funnels
   end
 
   private
+
+  def app_funnels
+    current_app.app_funnels
+  end
 
   def app_event_definitions
     current_app.event_definitions

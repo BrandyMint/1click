@@ -1,0 +1,14 @@
+h1 Воронка #{resource}
+
+= link_to 'изменить', edit_app_funnel_path(resource)
+
+table.table.table-condensed
+  thead
+    tr
+      th Событие
+      th Пользователей
+  tbody
+    - resource.app_funnel_event_definitions.each do |ed|
+      tr
+        td= ed.to_s
+        td= ed.users_count

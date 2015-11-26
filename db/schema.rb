@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151125171051) do
+ActiveRecord::Schema.define(version: 20151125180931) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,25 @@ ActiveRecord::Schema.define(version: 20151125171051) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "app_funnel_event_definitions", force: :cascade do |t|
+    t.integer  "app_funnel_id",       null: false
+    t.integer  "event_definition_id", null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
+  add_index "app_funnel_event_definitions", ["app_funnel_id"], name: "index_app_funnel_event_definitions_on_app_funnel_id", using: :btree
+  add_index "app_funnel_event_definitions", ["event_definition_id"], name: "index_app_funnel_event_definitions_on_event_definition_id", using: :btree
+
+  create_table "app_funnels", force: :cascade do |t|
+    t.integer  "app_id",     null: false
+    t.string   "title",      null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "app_funnels", ["app_id"], name: "index_app_funnels_on_app_id", using: :btree
 
   create_table "app_page_events", force: :cascade do |t|
     t.datetime "time",                                   null: false
@@ -136,4 +155,7 @@ ActiveRecord::Schema.define(version: 20151125171051) do
     t.integer  "users_count",     default: 0, null: false
   end
 
+  add_foreign_key "app_funnel_event_definitions", "app_funnels"
+  add_foreign_key "app_funnel_event_definitions", "event_definitions"
+  add_foreign_key "app_funnels", "apps"
 end
