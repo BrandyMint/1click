@@ -1,0 +1,21 @@
+.row
+  .col-md-3
+  .col-md-3
+    h2 Спасибо за регистрацию!
+    br
+
+    p Меня зовут Данил, я технический директор проекта. Свяжусь с Вами в течении суток по поводу подключения метрик для Вашего сайта.
+
+    p Ваши данные:
+
+    p= r.site
+    p= r.email_or_phone
+
+    p Если вдруг, я с Вами не связался, выйдите на связь со мной.
+    p= tel_to support_phone
+    p
+      = link_to 'skype:danil_pismenny' do
+        = fa_icon :skype, text: 'danil_pismenny'
+    p= mail_to 'danil@brandymint.ru'
+  .col-md-3
+

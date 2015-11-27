@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151125180931) do
+ActiveRecord::Schema.define(version: 20151126202423) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -153,6 +153,13 @@ ActiveRecord::Schema.define(version: 20151125180931) do
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
     t.integer  "users_count",     default: 0, null: false
+  end
+
+  create_table "requests", force: :cascade do |t|
+    t.string   "site"
+    t.string   "email_or_phone"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   add_foreign_key "app_funnel_event_definitions", "app_funnels"

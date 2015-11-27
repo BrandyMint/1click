@@ -1,4 +1,11 @@
 module ApplicationHelper
+  def support_phone
+    '8 (800) 77-55-661'
+  end
+
+  def tel_to(phone)
+    link_to phone, "tel:#{phone}"
+  end
 
   def paginate objects, options = {}
     options.reverse_merge!( theme: 'twitter-bootstrap-3', pagination_class: "pagination-small pagination-centered" )

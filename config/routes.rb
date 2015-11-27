@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   delete :reset, controller: :welcome, action: :reset
 
+  resources :requests, only: [:index, :create]
   resource :snippet, controller: :snippet
   resources :apps, only: [:index, :show] do
     member do
