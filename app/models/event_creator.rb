@@ -1,3 +1,5 @@
+require 'upsert/active_record_upsert'
+
 class EventCreator
   include Singleton
 
@@ -46,6 +48,9 @@ class EventCreator
   def create_visit_events!(params, request)
     vee = VisitEventEntity.build params
 
+    add_host vee
+    add_page vee
+
     case vee.type
     when '0'
       create_user!  vee, request
@@ -57,6 +62,18 @@ class EventCreator
       Bugsnag.notify "Unknown visit event type #{vee.type}",
         metaData: { visit_event: vee.as_json }
     end
+  end
+
+  def add_host(vee)
+    AppHost.create app_id: vee.appId, host: vee.domain
+  rescue ActiveRecord::RecordNotUnique
+    nil
+  end
+
+  def add_page(vee)
+    AppPage.create app_id: vee.appId, host: vee.domain, path: vee.path.presence || '/'
+  rescue ActiveRecord::RecordNotUnique
+    nil
   end
 
   def create_user!(vee, request)

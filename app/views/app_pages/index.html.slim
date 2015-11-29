@@ -1,0 +1,8 @@
+h1 Страницы
+
+table.table.table-condensed
+  - app_pages.each do |ap|
+    tr
+      td= ap
+
+= paginate app_pages

@@ -1,6 +1,7 @@
 require 'app_constraint'
 
 Rails.application.routes.draw do
+
   get :a, controller: :receiver, action: :create
 
   root controller: :welcome, action: :index
@@ -17,15 +18,18 @@ Rails.application.routes.draw do
     end
   end
 
-  # scope constraints: AppConstraint do
-  resources :app_events,        only: [:index]
-  resources :app_users,         only: [:index, :show]
-  resources :app_user_sessions, only: [:index, :show]
-  resources :app_user_visits,   only: [:index, :show]
-  resources :app_page_events,   only: [:index]
+  scope constraints: AppConstraint do
+    get :dashboard, controller: :dashboard, action: :index
+    resources :app_pages
+    resources :app_hosts
+    resources :app_events,        only: [:index]
+    resources :app_users,         only: [:index, :show]
+    resources :app_user_sessions, only: [:index, :show]
+    resources :app_user_visits,   only: [:index, :show]
+    resources :app_page_events,   only: [:index]
 
-  resources :event_definitions
-  resources :app_funnels
-  resources :app_funnel_event_definitions
-  # end
+    resources :event_definitions
+    resources :app_funnels
+    resources :app_funnel_event_definitions
+  end
 end

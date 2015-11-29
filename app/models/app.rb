@@ -6,12 +6,19 @@ class App < ActiveRecord::Base
   has_many :app_user_visits
   has_many :app_page_events
 
+  has_many :app_hosts
+  has_many :app_pages
+
   has_many :event_definitions
 
   has_many :app_funnels
 
   def to_s
-    "app-#{id}"
+    "app-#{id}: #{default_host}"
+  end
+
+  def default_host
+    app_hosts.first
   end
 
   def app_users_count

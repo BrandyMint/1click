@@ -1,17 +1,15 @@
 class AppConstraint
   def self.matches?(request)
-    app_id = request.subdomain
+    request.session[:init] = true
+    app_id = request.session['app_id']
 
-    if app_id.starts_with?('app-')
-      app_id = app_id.sub 'app-', ''
-      app = App.find app_id
+    return false unless app_id.present?
 
-      if app.present?
-        Thread.current[:app] = app
-        return true
-      else
-        return false
-      end
+    app = App.find_by_id app_id
+    if app.present?
+      Thread.current[:app] = app
+    else
+      Thread.current[:app] = nil
     end
   end
 end

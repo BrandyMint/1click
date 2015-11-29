@@ -9,6 +9,9 @@ module CurrentApplication
     helper_method :app_page_events
     helper_method :app_events
 
+    helper_method :app_hosts
+    helper_method :app_pages
+
     helper_method :app_event_definitions
     helper_method :app_funnels
   end
@@ -21,6 +24,22 @@ module CurrentApplication
 
   def app_event_definitions
     current_app.event_definitions
+  end
+
+  def app_pages
+    if current_app.present?
+      current_app.app_pages
+    else
+      AppPage.all
+    end
+  end
+
+  def app_hosts
+    if current_app.present?
+      current_app.app_hosts
+    else
+      AppHost.all
+    end
   end
 
   def app_users

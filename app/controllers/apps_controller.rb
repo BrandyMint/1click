@@ -6,6 +6,6 @@ class AppsController < ApplicationController
   def switch
     session[:app_id] = params[:id]
 
-    redirect_to root_path
+    redirect_to dashboard_path
   end
 end

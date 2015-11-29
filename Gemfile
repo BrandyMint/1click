@@ -11,6 +11,8 @@ gem 'virtus'
 gem 'bugsnag'
 gem 'settingslogic'
 
+gem 'upsert'
+
 gem 'nprogress-rails'
 
 gem 'sprockets-rails', github: 'rails/sprockets-rails', require: 'sprockets/railtie'

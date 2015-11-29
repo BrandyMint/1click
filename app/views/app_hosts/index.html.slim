@@ -1,0 +1,8 @@
+h1 Хосты
+
+table.table.table-condensed
+  - app_hosts.each do |ah|
+    tr
+      td= ah
+
+= paginate app_hosts

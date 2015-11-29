@@ -1,6 +1,6 @@
 nav.navbar.navbar-dark.bg-inverse.navbar-fixed-top
   .container-fluid
-    = link_to app_title, root_path, class: 'navbar-brand'
+    = link_to app_title, dashboard_path, class: 'navbar-brand'
     .pull-right
       ul.nav.navbar-nav
         li.nav-item= active_link_to "Исходные события (#{AppEvent.count})", app_events_path, class: 'nav-link'

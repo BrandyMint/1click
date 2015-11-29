@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151126202423) do
+ActiveRecord::Schema.define(version: 20151129055931) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,16 @@ ActiveRecord::Schema.define(version: 20151126202423) do
 
   add_index "app_funnels", ["app_id"], name: "index_app_funnels_on_app_id", using: :btree
 
+  create_table "app_hosts", force: :cascade do |t|
+    t.integer  "app_id"
+    t.string   "host",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "app_hosts", ["app_id", "host"], name: "index_app_hosts_on_app_id_and_host", unique: true, using: :btree
+  add_index "app_hosts", ["app_id"], name: "index_app_hosts_on_app_id", using: :btree
+
   create_table "app_page_events", force: :cascade do |t|
     t.datetime "time",                                   null: false
     t.integer  "app_id",                                 null: false
@@ -62,6 +72,17 @@ ActiveRecord::Schema.define(version: 20151126202423) do
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
   end
+
+  create_table "app_pages", force: :cascade do |t|
+    t.integer  "app_id"
+    t.string   "host",                     null: false
+    t.string   "path",       default: "/", null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "app_pages", ["app_id", "host", "path"], name: "index_app_pages_on_app_id_and_host_and_path", unique: true, using: :btree
+  add_index "app_pages", ["app_id"], name: "index_app_pages_on_app_id", using: :btree
 
   create_table "app_user_sessions", force: :cascade do |t|
     t.integer  "app_id",                                  null: false
@@ -165,4 +186,6 @@ ActiveRecord::Schema.define(version: 20151126202423) do
   add_foreign_key "app_funnel_event_definitions", "app_funnels"
   add_foreign_key "app_funnel_event_definitions", "event_definitions"
   add_foreign_key "app_funnels", "apps"
+  add_foreign_key "app_hosts", "apps"
+  add_foreign_key "app_pages", "apps"
 end

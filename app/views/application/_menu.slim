@@ -3,6 +3,8 @@ ul.nav.nav-pills.nav-stacked
   li.nav-item= active_link_to "Сессии (#{app_user_sessions.count})", app_user_sessions_path, class: 'nav-link'
   li.nav-item= active_link_to "Визиты (#{app_user_visits.count})", app_user_visits_path, class: 'nav-link'
   li.nav-item= active_link_to "События на странице (#{app_page_events.count})", app_page_events_path, class: 'nav-link'
+  li.nav-item= active_link_to "Хосты (#{app_hosts.count})", app_hosts_path, class: 'nav-link'
+  li.nav-item= active_link_to "Страницы (#{app_pages.count})", app_pages_path, class: 'nav-link'
   - if current_app.present?
     li.nav-divider
     li.nav-item= active_link_to "Определения событий (#{app_event_definitions.count})", event_definitions_path, class: 'nav-link'
