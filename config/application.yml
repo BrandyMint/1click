@@ -1,9 +1,15 @@
 defaults: &defaults
-  tld_length: 1
+  # tld_length: 1
+  default_url_options:
+    host: 1clickanalytics.ru
+    port: 80
 
 development:
   <<: *defaults
-  tld_length: 2
+  # tld_length: 2
+  default_url_options:
+    host: 3009.vkontraste.ru
+    port: 80
 
 test:
   <<: *defaults

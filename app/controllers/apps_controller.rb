@@ -4,8 +4,8 @@ class AppsController < ApplicationController
   end
 
   def switch
-    session[:app_id] = params[:id]
+    app = App.find params[:id]
 
-    redirect_to dashboard_path
+    redirect_to app.dashboard_url
   end
 end

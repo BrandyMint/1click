@@ -13,6 +13,14 @@ class App < ActiveRecord::Base
 
   has_many :app_funnels
 
+  def dashboard_url
+    Rails.application.routes.url_helpers.dashboard_url host: dashboard_host
+  end
+
+  def dashboard_host
+    [ AppConstraint::APP_PREFIX, id, '.', Settings.default_url_options.host ].join
+  end
+
   def to_s
     "app-#{id}: #{default_host}"
   end

@@ -83,9 +83,6 @@ module CurrentApplication
   end
 
   def current_app
-    return unless session[:app_id].present?
-
-    App.find session[:app_id]
-    # Thread.current[:app]
+    Thread.current[:app]
   end
 end

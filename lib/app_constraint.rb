@@ -1,7 +1,8 @@
 class AppConstraint
+  APP_PREFIX = 'app-'
+
   def self.matches?(request)
-    request.session[:init] = true
-    app_id = request.session['app_id']
+    app_id = request.subdomain.to_s.sub APP_PREFIX, ''
 
     return false unless app_id.present?
 
