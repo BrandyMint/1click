@@ -11,13 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151129055931) do
+ActiveRecord::Schema.define(version: 20151129173213) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
   enable_extension "pg_trgm"
   enable_extension "intarray"
+
+  create_table "accounts", force: :cascade do |t|
+    t.string   "host",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "app_events", force: :cascade do |t|
     t.integer  "app_id",     null: false
@@ -176,6 +182,18 @@ ActiveRecord::Schema.define(version: 20151129055931) do
     t.integer  "users_count",     default: 0, null: false
   end
 
+  create_table "memberships", force: :cascade do |t|
+    t.integer  "account_id"
+    t.integer  "user_id"
+    t.string   "role",       default: "guest", null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
+
+  add_index "memberships", ["account_id", "user_id"], name: "index_memberships_on_account_id_and_user_id", unique: true, using: :btree
+  add_index "memberships", ["account_id"], name: "index_memberships_on_account_id", using: :btree
+  add_index "memberships", ["user_id"], name: "index_memberships_on_user_id", using: :btree
+
   create_table "requests", force: :cascade do |t|
     t.string   "site"
     t.string   "email_or_phone"
@@ -183,9 +201,28 @@ ActiveRecord::Schema.define(version: 20151129055931) do
     t.datetime "updated_at",     null: false
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string   "name"
+    t.string   "phone"
+    t.string   "email"
+    t.string   "pin_code",           null: false
+    t.string   "phone_confirmed"
+    t.string   "string"
+    t.datetime "phone_confirmed_at"
+    t.string   "email_confirmed"
+    t.datetime "email_confirmed_at"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["phone"], name: "index_users_on_phone", unique: true, using: :btree
+
   add_foreign_key "app_funnel_event_definitions", "app_funnels"
   add_foreign_key "app_funnel_event_definitions", "event_definitions"
   add_foreign_key "app_funnels", "apps"
   add_foreign_key "app_hosts", "apps"
   add_foreign_key "app_pages", "apps"
+  add_foreign_key "memberships", "accounts"
+  add_foreign_key "memberships", "users"
 end

@@ -57,6 +57,15 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'active_link_to'
+gem 'smsc'
+
+#gem 'sidekiq-reset_statistics'
+#gem 'sidekiq-failures', github: 'mhfs/sidekiq-failures'
+#gem 'sidekiq-unique-jobs'
+#gem 'sidekiq-status'
+# gem 'sidekiq-statsd'
+gem 'sidekiq'
+#gem 'sidekiq-cron'
 
 gem 'inherited_resources'
 gem 'responders'
