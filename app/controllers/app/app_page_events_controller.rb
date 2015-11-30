@@ -1,4 +1,4 @@
-class AppPageEventsController < ApplicationController
+class App::AppPageEventsController < App::ApplicationController
   include AppUserVisitHelper
   include AppUserHelper
   include AppUserSessionHelper

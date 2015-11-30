@@ -1,4 +1,4 @@
-class EventDefinitionsController < ApplicationController
+class App::EventDefinitionsController < ApplicationController
   def index
   end
 

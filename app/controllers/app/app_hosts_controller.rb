@@ -1,4 +1,4 @@
-class AppHostsController < ApplicationController
+class App::AppHostsController < App::ApplicationController
   def index
     render locals: { app_hosts: app_hosts.page(params[:page]).order('host desc') }
   end

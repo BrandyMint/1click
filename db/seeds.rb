@@ -5,6 +5,17 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+user = User.find_by_name 'admin'
+
+unless user.present?
+  user = User.create! name: 'admin', email: 'danil@brandymint.ru', phone: '79033891228', password: 'oneclick'
+end
+
+account = Account.find_or_create!( host: 'test' )
+
+account.memberships.create! user: user unless account.users.include? user
+
 app = App.find_or_create_by id: 1
 
 app.event_definitions.destroy_all

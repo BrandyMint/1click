@@ -1,4 +1,4 @@
-class AppUserSessionsController < ApplicationController
+class App::AppUserSessionsController < App::ApplicationController
   include AppUserHelper
 
   def index

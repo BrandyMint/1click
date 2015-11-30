@@ -1,0 +1,1 @@
+NoUserError = Class.new AuthorityError

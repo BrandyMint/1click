@@ -1,26 +1,32 @@
 require 'app_constraint'
+require 'root_constraint'
 
 Rails.application.routes.draw do
   default_url_options Settings.default_url_options.symbolize_keys
 
-  get :a, controller: :receiver, action: :create
+  scope constraints: RootConstraint do
+    get :a, controller: :receiver, action: :create
 
-  root controller: :welcome, action: :index
+    get :login, controller: :sessions, action: :new
+    post :login, controller: :sessions, action: :create
 
-  post :form, controller: :welcome
+    root controller: :welcome, action: :index
 
-  delete :reset, controller: :welcome, action: :reset
+    post :form, controller: :welcome
 
-  resources :requests, only: [:index, :create]
-  resource :snippet, controller: :snippet
-  resources :apps, only: [:index, :show] do
-    member do
-      get :switch
+    delete :reset, controller: :welcome, action: :reset
+
+    resources :requests, only: [:index, :create]
+    resource :snippet, controller: :snippet
+    resources :apps, only: [:index, :show] do
+      member do
+        get :switch
+      end
     end
   end
 
-  scope constraints: AppConstraint do
-    get :dashboard, controller: :dashboard, action: :index
+  scope module: :app, constraints: AppConstraint do
+    root controller: :dashboard, action: :index, as: :dashboard
     resources :app_pages
     resources :app_hosts
     resources :app_events,        only: [:index]

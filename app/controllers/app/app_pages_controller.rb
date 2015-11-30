@@ -1,4 +1,4 @@
-class AppPagesController < ApplicationController
+class App::AppPagesController < App::ApplicationController
   def index
     render locals: { app_pages: app_pages.page(params[:page]).order('path desc') }
   end

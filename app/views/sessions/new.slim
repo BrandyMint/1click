@@ -1,0 +1,4 @@
+= simple_form_for login_form, url: login_url(subdomain: '') do |f|
+  = f.input :login
+  = f.input :password
+  = f.submit "Войти..", class: 'btn btn-primary'

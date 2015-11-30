@@ -143,6 +143,7 @@ ActiveRecord::Schema.define(version: 20151129173213) do
     t.datetime "updated_at",                          null: false
     t.string   "title"
     t.integer  "event_definitions_count", default: 0, null: false
+    t.integer  "account_id",                          null: false
   end
 
   create_table "event_applies", force: :cascade do |t|

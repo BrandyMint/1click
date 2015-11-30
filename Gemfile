@@ -67,9 +67,18 @@ gem 'smsc'
 gem 'sidekiq'
 #gem 'sidekiq-cron'
 
+gem 'pundit'
+gem 'active_type'
 gem 'inherited_resources'
 gem 'responders'
 gem 'has_scope'
+
+gem 'virtus'
+
+gem 'strip_attributes'
+gem 'counter_culture'
+gem 'slack-notifier'
+gem 'phone', github: 'BrandyMint/phone', branch: 'feature/russia'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

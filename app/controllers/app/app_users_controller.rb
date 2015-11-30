@@ -1,4 +1,4 @@
-class AppUsersController < ApplicationController
+class App::AppUsersController < App::ApplicationController
   def index
     render locals: { users: app_users.page(params[:page]).order('created_at desc') }
   end

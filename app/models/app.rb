@@ -1,4 +1,6 @@
 class App < ActiveRecord::Base
+  belongs_to :account
+
   has_many :app_events
 
   has_many :app_users

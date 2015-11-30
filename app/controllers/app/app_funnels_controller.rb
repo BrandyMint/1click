@@ -1,4 +1,4 @@
-class AppFunnelsController < ApplicationController
+class App::AppFunnelsController < App::ApplicationController
   inherit_resources
 
   protected

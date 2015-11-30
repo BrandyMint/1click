@@ -1,4 +1,4 @@
-class AppUserVisitsController < ApplicationController
+class App::AppUserVisitsController < App::ApplicationController
   include AppUserHelper
   include AppUserSessionHelper
 
