@@ -14,7 +14,7 @@ class App::AppUserVisitsController < App::ApplicationController
     elsif params[:sessionId].present?
       scope = AppUserVisit.where sessionId: params[:sessionId]
     else
-      scope = AppUserVisit.all
+      scope = current_app.app_user_visits
     end
     scope.order('created_at desc')
   end

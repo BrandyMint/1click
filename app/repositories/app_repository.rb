@@ -10,6 +10,6 @@ class AppRepository < ROM::Repository::Base
   #end
 
   def all_apps
-    apps.all
+    apps.all.as(:app)
   end
 end

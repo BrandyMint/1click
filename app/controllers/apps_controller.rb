@@ -12,6 +12,6 @@ class AppsController < ApplicationController
   private
 
   def apps
-    ROM.env.relation(:apps).as(:app)
+    AppRepository.new(ROM.env).all_apps
   end
 end
