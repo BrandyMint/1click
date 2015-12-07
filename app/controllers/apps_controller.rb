@@ -12,6 +12,6 @@ class AppsController < ApplicationController
   private
 
   def apps
-    AppRepository.new(ROM.env).all_apps
+    AppRepository.new(ROM.env).all_apps.as(:app)
   end
 end
