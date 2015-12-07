@@ -1,14 +1,57 @@
 class App
-  include ValueObject
+  include ROM::Model::Attributes
 
-  values do
-    attribute :id,                      Integer
-    attribute :title,                   String
-    attribute :event_definitions_count, Integer
-    attribute :account_id,              Integer
+  attribute :id,                      Integer
+  attribute :title,                   String
+  attribute :event_definitions_count, Integer
+  attribute :account_id,              Integer
+
+  attribute :app_users_count,         Integer
+  attribute :app_user_sessions_count, Integer
+  attribute :app_user_visits_count,   Integer
+  attribute :app_page_events_count,   Integer
+
+  timestamps
+
+  def app_events
+    AppEvent.where(app_id: id)
   end
 
-  #belongs_to :account
+  def app_users
+    AppUser.where(app_id: id)
+  end
+
+  def users
+    Account.find(account_id).users
+  end
+
+  def app_user_sessions
+    AppUserSession.where(app_id: id)
+  end
+
+  def app_page_events
+    AppPageEvent.where(app_id: id)
+  end
+
+  def app_funnels
+    AppFunnel.where(app_id: id)
+  end
+
+  def event_definitions
+    EventDefinition.where(app_id: id)
+  end
+
+  def app_pages
+    AppPage.where(app_id: id)
+  end
+
+  def app_hosts
+    AppHost.where(app_id: id)
+  end
+
+  def app_user_visits
+    AppUserVisit.where(app_id: id)
+  end
 
   #has_many :app_events
 
@@ -38,21 +81,5 @@ class App
 
   def default_host
     # app_hosts.first
-  end
-
-  def app_users_count
-    # app_users.count
-  end
-
-  def app_user_sessions_count
-    # app_user_sessions.count
-  end
-
-  def app_user_visits_count
-    # app_user_visits.count
-  end
-
-  def app_page_events_count
-    # app_page_events.count
   end
 end

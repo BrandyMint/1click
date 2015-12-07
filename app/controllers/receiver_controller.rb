@@ -1,4 +1,8 @@
 class ReceiverController < ApplicationController
+
+  # НЕ понимаю почему оно валитя
+  skip_before_action :verify_authenticity_token
+
   def create
     # TODO логируем запрос
 

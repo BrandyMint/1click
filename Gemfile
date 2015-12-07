@@ -13,6 +13,8 @@ gem 'rom-repository'
 gem 'rom-model'
 gem 'rom-sql'
 
+# gem 'sorcery'
+
 gem 'rom-rails'
 
 gem 'bugsnag'
@@ -107,6 +109,7 @@ gem 'unicorn'
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
+  gem 'rspec'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'rspec-rails'
   gem 'rspec-collection_matchers'

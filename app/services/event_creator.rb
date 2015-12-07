@@ -63,8 +63,12 @@ class EventCreator
   end
 
   def find_or_create_app
-    App.find params['a']
-  rescue ActiveRecord::RecordNotFound => err
+    app
+  end
+
+  def app
+    @app ||= AppRepository.new(ROM.env).find params['a']
+  rescue ROM::TupleCountMismatchError => err
     Bugsnag.notify 'Unknown application', app_id: params['a']
     fail err
   end

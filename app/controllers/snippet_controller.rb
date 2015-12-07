@@ -1,5 +1,6 @@
 class SnippetController < ApplicationController
   include SnippetHelper
+  skip_before_action :verify_authenticity_token
 
   def create
     snippet_on!

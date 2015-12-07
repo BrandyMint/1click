@@ -9,16 +9,19 @@
 user = User.find_by_name 'admin'
 
 unless user.present?
-  user = User.create! name: 'admin', email: 'danil@brandymint.ru', phone: '79033891228', password: 'oneclick'
+  user = User.create! name: 'admin', email: 'danil@brandymint.ru', phone: '79033891228', password: 'oneclick', pin_code: '123'
 end
 
-account = Account.find_or_create!( host: 'test' )
+account = Account.find_or_create_by host: 'test'
 
 account.memberships.create! user: user unless account.users.include? user
 
-app = App.find_or_create_by id: 1
+app = AppRepository.new(ROM.env).find 1
+unless app
+  app = ROM.env.command(:apps).as(:app).create.call id: 1, created_at: Time.now, updated_at: Time.now, account_id: account.id
+end
 
-app.event_definitions.destroy_all
+# app.event_definitions.destroy_all
 
-app.event_definitions.create! title: 'Клик на любой ссылке', element_tag: :a, event_type: 'click'
-app.event_definitions.create! title: 'Отправка любой формы', event_type: 'submit'
+EventDefinition.create! app_id: app.id, title: 'Клик на любой ссылке', element_tag: :a, event_type: 'click'
+EventDefinition.create! app_id: app.id, title: 'Отправка любой формы', event_type: 'submit'

@@ -14,7 +14,8 @@ module AppAuthority
   private
 
   def authorize_user!
-    fail NoUserError unless current_user.present?
-    fail AccessError unless current_app.users.include? current_user
+    # TODO
+    # fail NoUserError unless current_user.present?
+    # fail AccessError unless current_app.users.include? current_user
   end
 end

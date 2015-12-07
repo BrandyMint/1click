@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151207133745) do
+ActiveRecord::Schema.define(version: 20151207184141) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -175,11 +175,21 @@ ActiveRecord::Schema.define(version: 20151207133745) do
   add_index "app_users", ["app_id", "userId"], name: "index_app_users_on_app_id_and_userId", using: :btree
 
   create_table "apps", force: :cascade do |t|
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.string   "title"
-    t.integer  "event_definitions_count", default: 0, null: false
-    t.integer  "account_id",                          null: false
+    t.integer  "event_definitions_count",    default: 0, null: false
+    t.integer  "account_id",                             null: false
+    t.integer  "app_user_sessions_count",    default: 0, null: false
+    t.integer  "app_user_visits_count",      default: 0, null: false
+    t.integer  "app_events_count",           default: 0, null: false
+    t.integer  "app_users_count",            default: 0, null: false
+    t.integer  "app_sessions_count",         default: 0, null: false
+    t.integer  "app_page_events_count",      default: 0, null: false
+    t.integer  "app_identifies_count",       default: 0, null: false
+    t.integer  "app_identified_users_count", default: 0, null: false
+    t.integer  "app_visits_count",           default: 0, null: false
+    t.integer  "app_pages_count",            default: 0, null: false
   end
 
   create_table "event_applies", force: :cascade do |t|
@@ -250,6 +260,8 @@ ActiveRecord::Schema.define(version: 20151207133745) do
     t.datetime "email_confirmed_at"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.string   "crypted_password"
+    t.string   "salt"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

@@ -6,7 +6,7 @@ class AppConstraint
 
     return false unless app_id.present?
 
-    app = App.find_by_id app_id
+    app = AppRepository.new(ROM.env).find app_id
     if app.present?
       Thread.current[:app] = app
     else

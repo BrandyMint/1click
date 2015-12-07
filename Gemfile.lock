@@ -558,6 +558,7 @@ DEPENDENCIES
   rom-rails
   rom-repository
   rom-sql
+  rspec
   rspec-collection_matchers
   rspec-rails
   sass-rails (~> 5.0)

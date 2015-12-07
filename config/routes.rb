@@ -9,6 +9,10 @@ Rails.application.routes.draw do
     root controller: :swagger, action: :index, as: :api_doc
   end
 
+  resource :snippet, controller: :snippet
+  post :form, controller: :welcome
+
+
   scope constraints: RootConstraint do
     get :a, controller: :receiver, action: :create
 
@@ -17,12 +21,9 @@ Rails.application.routes.draw do
 
     root controller: :welcome, action: :index
 
-    post :form, controller: :welcome
-
     delete :reset, controller: :welcome, action: :reset
 
     resources :requests, only: [:index, :create]
-    resource :snippet, controller: :snippet
     resources :apps, only: [:index, :show] do
       member do
         get :switch

@@ -1,5 +1,4 @@
 defaults: &defaults
-  # tld_length: 1
   default_url_options:
     host: 1clickanalytics.ru
     port: 80

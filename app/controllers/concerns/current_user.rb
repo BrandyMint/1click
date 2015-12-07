@@ -19,7 +19,7 @@ module CurrentUser
     User.find_by_id session[:user_id]
   end
 
-  def current_member
-    @current_member ||= current_app.memberships
-  end
+  #def current_member
+    #@current_member ||= current_app.memberships
+  #end
 end

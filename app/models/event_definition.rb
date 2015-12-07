@@ -1,5 +1,5 @@
 class EventDefinition < ActiveRecord::Base
-  belongs_to :app, counter_cache: true
+  # belongs_to :app, counter_cache: true
   has_many :event_applies, dependent: :delete_all
   has_many :event_definition_user_applies, dependent: :delete_all
 

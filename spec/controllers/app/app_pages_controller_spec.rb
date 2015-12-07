@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe AppHostsController, type: :controller do
+RSpec.describe App::AppPagesController, type: :controller do
 
   describe "GET #index" do
     it "returns http success" do

@@ -5,7 +5,7 @@ require 'test_helper'
 
 class EventCreatorTest < ActiveSupport::TestCase
 
-  REQUEST = OpenStruct.new user_agent: 'mozilla'
+  USER_AGENT = 'mozilla'
 
   PARAMS_TYPE_0 = {"a"=>"333", "d"=>"rawgit.com", "g"=>"Test Title", "m"=>"web", "p"=>"/BrandyMint/aristotel/master/example/test.html", "r"=>"http://3009.vkontraste.ru/", "s"=>"1034253649", "t"=>"0", "u"=>"7158547617168538", "v"=>"1193048213", "tm"=>"1448005969822"}
 
@@ -18,7 +18,8 @@ class EventCreatorTest < ActiveSupport::TestCase
   PARAMS_CLICK_AND_SUBMIT = {"a"=>"333", "m"=>"web", "s"=>"2564470158", "u"=>"8992569949901988", "v"=>"0918849231", "l0"=>"submit-class", "n0"=>"input", "n1"=>"form", "t0"=>"click", "t1"=>"submit", "tm"=>"1448005511465", "w0"=>"@form;|@input;.submit-class;|", "w1"=>"@form;|", "x1"=>"форма тестовая\n\nлейбл для поля"}
 
   test 'Клик и сабмит' do
-    events = EventCreator.create! params: ActionController::Parameters.new(PARAMS_CLICK_AND_SUBMIT), request: REQUEST
+    request = OpenStruct.new user_agent: USER_AGENT, query_string: PARAMS_CLICK_AND_SUBMIT.to_query
+    events = EventCreator.create! request
 
     assert_equal 2, events.count
 
@@ -35,7 +36,8 @@ class EventCreatorTest < ActiveSupport::TestCase
   end
 
   test 'Клик' do
-    events = EventCreator.create! params: ActionController::Parameters.new(PARAMS_CLICK), request: REQUEST
+    request = OpenStruct.new user_agent: USER_AGENT, query_string: PARAMS_CLICK.to_query
+    events = EventCreator.create! request
 
     assert_instance_of Array, events
     event = events.first
@@ -48,20 +50,23 @@ class EventCreatorTest < ActiveSupport::TestCase
   end
 
   test 'Новый пользователь' do
-    event = EventCreator.create! params: ActionController::Parameters.new(PARAMS_TYPE_0), request: REQUEST
+    request = OpenStruct.new user_agent: USER_AGENT, query_string: PARAMS_TYPE_0.to_query
+    event = EventCreator.create! request
 
     assert_instance_of AppUser, event
   end
 
   test 'Новый визит' do
-    event = EventCreator.create! params: ActionController::Parameters.new(PARAMS_TYPE_2), request: REQUEST
+    request = OpenStruct.new user_agent: USER_AGENT, query_string: PARAMS_TYPE_2.to_query
+    event = EventCreator.create! request
 
     assert_equal 'rawgit.com', event.domain
     assert_instance_of AppUserVisit, event
   end
 
   test 'Новая сессия' do
-    event = EventCreator.create! params: ActionController::Parameters.new(PARAMS_TYPE_1), request: REQUEST
+    request = OpenStruct.new user_agent: USER_AGENT, query_string: PARAMS_TYPE_1.to_query
+    event = EventCreator.create! request
 
     #assert_equal 'rawgit.com', event.domain
     assert_instance_of AppUserSession, event

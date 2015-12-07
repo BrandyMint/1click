@@ -4,7 +4,7 @@ class AppsController < ApplicationController
   end
 
   def switch
-    app = App.find params[:id]
+    app = AppRepository.new(ROM.env).find params[:id]
 
     redirect_to app.dashboard_url
   end
