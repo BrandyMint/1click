@@ -10,7 +10,7 @@ class CreateAccounts < ActiveRecord::Migration
 
     account = Account.create! host: 'test'
 
-    App.update_all account_id: account.id
+    execute "update apps set account_id = #{account.id}"
 
     change_column :apps, :account_id, :integer, null: false
   end
