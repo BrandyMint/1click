@@ -8,10 +8,27 @@ gem 'pg'
 
 gem 'virtus'
 
+gem 'rom'
+gem 'rom-repository'
+gem 'rom-model'
+gem 'rom-sql'
+
+gem 'rom-rails'
+
 gem 'bugsnag'
 gem 'settingslogic'
 
 gem 'upsert'
+
+gem 'gravatarify'
+
+gem 'hashie-forbidden_attributes'
+
+gem 'grape'
+gem 'grape-swagger'
+gem 'swagger-ui_rails'
+# markdown для grape
+gem 'kramdown'
 
 gem 'nprogress-rails'
 

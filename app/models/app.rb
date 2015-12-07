@@ -1,19 +1,28 @@
-class App < ActiveRecord::Base
-  belongs_to :account
+class App
+  include ValueObject
 
-  has_many :app_events
+  values do
+    attribute :id,                      Integer
+    attribute :title,                   String
+    attribute :event_definitions_count, Integer
+    attribute :account_id,              Integer
+  end
 
-  has_many :app_users
-  has_many :app_user_sessions
-  has_many :app_user_visits
-  has_many :app_page_events
+  #belongs_to :account
 
-  has_many :app_hosts
-  has_many :app_pages
+  #has_many :app_events
 
-  has_many :event_definitions
+  #has_many :app_users
+  #has_many :app_user_sessions
+  #has_many :app_user_visits
+  #has_many :app_page_events
 
-  has_many :app_funnels
+  #has_many :app_hosts
+  #has_many :app_pages
+
+  #has_many :event_definitions
+
+  #has_many :app_funnels
 
   def dashboard_url
     Rails.application.routes.url_helpers.dashboard_url host: dashboard_host
@@ -28,22 +37,22 @@ class App < ActiveRecord::Base
   end
 
   def default_host
-    app_hosts.first
+    # app_hosts.first
   end
 
   def app_users_count
-    app_users.count
+    # app_users.count
   end
 
   def app_user_sessions_count
-    app_user_sessions.count
+    # app_user_sessions.count
   end
 
   def app_user_visits_count
-    app_user_visits.count
+    # app_user_visits.count
   end
 
   def app_page_events_count
-    app_page_events.count
+    # app_page_events.count
   end
 end

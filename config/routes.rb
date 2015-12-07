@@ -4,6 +4,11 @@ require 'root_constraint'
 Rails.application.routes.draw do
   default_url_options Settings.default_url_options.symbolize_keys
 
+  scope subdomain: 'api', constraints: { subdomain: 'api' } do
+    mount API => '/', as: :api
+    root controller: :swagger, action: :index, as: :api_doc
+  end
+
   scope constraints: RootConstraint do
     get :a, controller: :receiver, action: :create
 

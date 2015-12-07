@@ -4,6 +4,9 @@ defaults: &defaults
     host: 1clickanalytics.ru
     port: 80
 
+  app:
+    title: 1ClickAnalytics
+
 development:
   <<: *defaults
   # tld_length: 2

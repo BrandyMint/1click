@@ -1,0 +1,34 @@
+-# http://3001.vkontraste.ru/api/v1/swagger_doc
+-# Живой пример: https://github.com/swagger-api/swagger-ui/blob/master/dist/index.html
+-#/https://github.com/BrandyMint/grape-swagger-rails/blob/master/app/views/grape_swagger_rails/application/index.html.erb
+
+javascript:
+  (function() {
+    $(function() {
+      window.swaggerUi = new SwaggerUi({
+        url: "#{discovery_url}",
+        dom_id: "swagger-ui-container",
+        supportHeaderParams: true,
+        supportedSubmitMethods: ['get', 'post', 'put', 'delete', 'patch'],
+        onComplete: function(swaggerApi, swaggerUi) {
+          if (console) {
+            console.log("Loaded SwaggerUI");
+            console.log(swaggerApi);
+            console.log(swaggerUi);
+          }
+          return $('pre code').each(function(i, e) {
+            return hljs.highlightBlock(e);
+          });
+        },
+        onFailure: function(data) {
+          if (console) {
+            console.log("Unable to Load SwaggerUI");
+            return console.log(data);
+          }
+        },
+        docExpansion: "none"
+      });
+      return window.swaggerUi.load();
+    });
+
+  }).call(this);

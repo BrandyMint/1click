@@ -3,6 +3,10 @@ module ApplicationHelper
     '8 (800) 77-55-661'
   end
 
+  def apps_count
+    ROM.env.relation(:apps).count
+  end
+
   def tel_to(phone)
     link_to phone, "tel:#{phone}"
   end

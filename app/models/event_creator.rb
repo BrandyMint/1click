@@ -3,38 +3,73 @@ require 'upsert/active_record_upsert'
 class EventCreator
   include Singleton
 
-  def self.create!(params:, request:)
-    instance.create! params: params, request: request
+  def self.create!(request)
+    new(request).create!
   end
 
-  def initialize
-    @time = Time.now
+  def initialize(request)
+    @request = request
+    @time    = Time.now
   end
 
-  def create!(params:, request:)
-    App.find_or_create_by id: params['a']
+  def create!
+    find_or_create_app
+    log_app_event
+    log_typed_event
+  end
 
-    AppEvent.create!(
-      app_id:     params['a'],
-      params:     params,
-      user_agent: request.user_agent
-    )
+  private
 
+  attr_reader :time, :request
+
+  delegate :user_agent, :query_string, to: :request
+
+  # {
+  # "a"=>["333"],
+  # "u"=>["3135142167941140"],
+  # "v"=>["3960386852"],
+  # "s"=>["1672143682"],
+  # "m"=>["web"],
+  # "t0"=>["eeee"],
+  # "k0"=>["a", "1", "b", "2", "c", "3"],
+  # "tm"=>["1449041172387"]
+  # }
+  #
+  def query
+    @query ||= CGI.parse request.query_string
+  end
+
+  def params
+    @params ||= query.each_with_object({}) { |h,a| a[h.first]=h.second.first }
+  end
+
+  def log_typed_event
     if params['t'].present?
-      create_visit_events! params, request
+      create_visit_events!
     else
-      entities = buildEntities params
+      entities = buildEntities
       entities.map do |e|
         create_page_event! e
       end
     end
   end
 
-  private
+  def log_app_event
+    AppEvent.create!(
+      app_id:     params['a'],
+      query:      query_string,
+      user_agent: user_agent
+    )
+  end
 
-  attr_reader :time
+  def find_or_create_app
+    App.find params['a']
+  rescue ActiveRecord::RecordNotFound => err
+    Bugsnag.notify 'Unknown application', app_id: params['a']
+    fail err
+  end
 
-  def buildEntities(params)
+  def buildEntities
     fail "No suffixed type: #{params}" unless params["t0"].present?
     suffix = 0
     entities = []
@@ -45,7 +80,7 @@ class EventCreator
     entities
   end
 
-  def create_visit_events!(params, request)
+  def create_visit_events!
     vee = VisitEventEntity.build params
 
     add_host vee
@@ -53,9 +88,9 @@ class EventCreator
 
     case vee.type
     when '0'
-      create_user!  vee, request
+      create_user! vee
     when '1'
-      create_session! vee, request, true
+      create_session! vee, true
     when '2'
       create_visit! vee, true
     else
@@ -76,20 +111,20 @@ class EventCreator
     nil
   end
 
-  def create_user!(vee, request)
+  def create_user!(vee)
     user = AppUser.create! app_id: vee.appId, userId: vee.userId
 
-    create_session! vee, request
+    create_session! vee
 
     user
   end
 
-  def create_session!(vee, request, direct = false)
+  def create_session!(vee, direct = false)
     session = AppUserSession.create!(
       app_id:     vee.appId,
       userId:     vee.userId,
       sessionId:  vee.sessionId,
-      user_agent: request.user_agent
+      user_agent: user_agent
     )
 
     increment_user_sessions vee

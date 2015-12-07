@@ -9,7 +9,7 @@ module SnippetHelper
 
   def include_snippet
     return unless  snippet_on?
-    render 'snippet', app_id: 1, src: snippet_src, requestUrl: snippet_request_url
+    render 'snippet', app_id: 1, src: snippet_src, requestUrl: snippet_request_url, apiUrl: snippet_api_url
   end
 
   def snippet_on?
@@ -22,6 +22,10 @@ module SnippetHelper
 
   def snippet_off!
     session[:snippet] = false
+  end
+
+  def snippet_api_url
+    api_url + 'identify'
   end
 
   def snippet_request_url
