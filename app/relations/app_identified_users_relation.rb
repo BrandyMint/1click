@@ -10,7 +10,7 @@ class AppIdentifiedUsersRelation < ROM::Relation[:sql]
   end
 
   def find_by_handle(app_id, handle)
-    where(app_id: app_id, handle: handle).as(:app_identified_user).one
+    where(app_id: app_id, handle: handle)
   end
 
   # define your methods here ie:

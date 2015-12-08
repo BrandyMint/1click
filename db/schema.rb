@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151208064130) do
+ActiveRecord::Schema.define(version: 20151208191135) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(version: 20151208064130) do
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
     t.string   "handle",               null: false
+    t.string   "email"
   end
 
   add_index "app_identified_users", ["app_id", "handle"], name: "index_app_identified_users_on_app_id_and_handle", unique: true, using: :btree
@@ -86,8 +87,6 @@ ActiveRecord::Schema.define(version: 20151208064130) do
     t.integer  "handledUserId", limit: 8, null: false
   end
 
-  add_index "app_identifies", ["app_id", "email"], name: "index_app_identifies_on_app_id_and_email", unique: true, using: :btree
-  add_index "app_identifies", ["app_id", "handle"], name: "index_app_identifies_on_app_id_and_handle", unique: true, using: :btree
   add_index "app_identifies", ["app_id"], name: "index_app_identifies_on_app_id", using: :btree
 
   create_table "app_page_events", force: :cascade do |t|

@@ -5,5 +5,3 @@ require 'test_helper'
 
 class AppIdentifyCreator < ActiveSupport::TestCase
 end
-
-

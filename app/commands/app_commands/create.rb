@@ -3,8 +3,5 @@ module AppCommands
     relation :apps
     register_as :create
     result :one
-
-    # define a validator to use
-    # validator AppValidator
   end
 end

@@ -7,4 +7,5 @@ class AppIdentify
   attribute :sessionId, Integer
   attribute :visitId,   Integer
   attribute :userId,    Integer
+  attribute :handleUserId,  Integer
 end

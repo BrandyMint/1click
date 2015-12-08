@@ -4,4 +4,6 @@ class AppIdentifiedUser
   attribute :app_id, Integer
   attribute :userId, Integer
   attribute :handle, String
+
+  timestamps
 end

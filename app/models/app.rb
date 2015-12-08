@@ -3,13 +3,13 @@ class App
 
   attribute :id,                      Integer
   attribute :title,                   String
-  attribute :event_definitions_count, Integer
+  attribute :event_definitions_count, Integer, default: 0
   attribute :account_id,              Integer
 
-  attribute :app_users_count,         Integer
-  attribute :app_user_sessions_count, Integer
-  attribute :app_user_visits_count,   Integer
-  attribute :app_page_events_count,   Integer
+  attribute :app_users_count,         Integer, default: 0
+  attribute :app_user_sessions_count, Integer, default: 0
+  attribute :app_user_visits_count,   Integer, default: 0
+  attribute :app_page_events_count,   Integer, default: 0
 
   timestamps
 

@@ -184,6 +184,7 @@ GEM
       activerecord (>= 3.0.0)
       activesupport (>= 3.0.0)
       after_commit_action (~> 1.0.0)
+    database_cleaner (1.4.1)
     debug_inspector (0.0.2)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
@@ -519,6 +520,7 @@ DEPENDENCIES
   cocoon
   coffee-rails (~> 4.1.0)
   counter_culture
+  database_cleaner
   font-awesome-rails
   grape
   grape-swagger
