@@ -6,6 +6,6 @@ class AppIdentifyRelation < ROM::Relation[:sql]
   # define your methods here ie:
   #
   def all
-    select(:id, :name).order(:id)
+    select(:id).order(:id)
   end
 end

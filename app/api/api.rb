@@ -24,7 +24,7 @@ class API < Grape::API
       optional :k, type: String
     end
     get do
-      newUserId = AppIdentifyCreator.create app_id: a, userId: u, visitorId: u, sessionId: s
+      newUserId = AppIdentifyCreator.create app_id: a, userId: u, visitId: v, sessionId: s
       "window.#{params.callback}({uid: #{newUserId}});"
     end
   end

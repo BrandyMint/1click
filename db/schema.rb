@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151207184141) do
+ActiveRecord::Schema.define(version: 20151208064130) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,20 +67,23 @@ ActiveRecord::Schema.define(version: 20151207184141) do
     t.integer  "userId",     limit: 8, null: false
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
+    t.string   "handle",               null: false
   end
 
+  add_index "app_identified_users", ["app_id", "handle"], name: "index_app_identified_users_on_app_id_and_handle", unique: true, using: :btree
   add_index "app_identified_users", ["app_id", "userId"], name: "index_app_identified_users_on_app_id_and_userId", unique: true, using: :btree
   add_index "app_identified_users", ["app_id"], name: "index_app_identified_users_on_app_id", using: :btree
 
   create_table "app_identifies", force: :cascade do |t|
     t.integer  "app_id"
     t.string   "email"
-    t.string   "handle",     null: false
-    t.string   "sessionId",  null: false
-    t.string   "visitId",    null: false
-    t.string   "userId",     null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "handle",                  null: false
+    t.string   "sessionId",               null: false
+    t.string   "visitId",                 null: false
+    t.string   "userId",                  null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "handledUserId", limit: 8, null: false
   end
 
   add_index "app_identifies", ["app_id", "email"], name: "index_app_identifies_on_app_id_and_email", unique: true, using: :btree
@@ -114,17 +117,6 @@ ActiveRecord::Schema.define(version: 20151207184141) do
 
   add_index "app_pages", ["app_id", "host", "path"], name: "index_app_pages_on_app_id_and_host_and_path", unique: true, using: :btree
   add_index "app_pages", ["app_id"], name: "index_app_pages_on_app_id", using: :btree
-
-  create_table "app_user_identifies", force: :cascade do |t|
-    t.integer  "app_id"
-    t.integer  "visitUserId",   limit: 8, null: false
-    t.integer  "handledUserId", limit: 8, null: false
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-  end
-
-  add_index "app_user_identifies", ["app_id", "visitUserId"], name: "index_app_user_identifies_on_app_id_and_visitUserId", unique: true, using: :btree
-  add_index "app_user_identifies", ["app_id"], name: "index_app_user_identifies_on_app_id", using: :btree
 
   create_table "app_user_sessions", force: :cascade do |t|
     t.integer  "app_id",                                  null: false
@@ -274,7 +266,6 @@ ActiveRecord::Schema.define(version: 20151207184141) do
   add_foreign_key "app_identified_users", "apps"
   add_foreign_key "app_identifies", "apps"
   add_foreign_key "app_pages", "apps"
-  add_foreign_key "app_user_identifies", "apps"
   add_foreign_key "memberships", "accounts"
   add_foreign_key "memberships", "users"
 end
