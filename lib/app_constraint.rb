@@ -2,6 +2,7 @@ class AppConstraint
   APP_PREFIX = 'app-'
 
   def self.matches?(request)
+    return false unless request.subdomain.start_with? APP_PREFIX
     app_id = request.subdomain.to_s.sub APP_PREFIX, ''
 
     return false unless app_id.present?
