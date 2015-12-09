@@ -9,5 +9,8 @@ class ReceiverController < ApplicationController
     EventCreator.create! request
 
     send_file Rails.root.join("public/r.#{params[:format]}")
+  rescue => err
+    Bugsnag.notify err
+    send_file Rails.root.join("public/error.#{params[:format]}")
   end
 end
