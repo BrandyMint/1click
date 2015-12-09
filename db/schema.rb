@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151208191135) do
+ActiveRecord::Schema.define(version: 20151208210429) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,13 +78,12 @@ ActiveRecord::Schema.define(version: 20151208191135) do
   create_table "app_identifies", force: :cascade do |t|
     t.integer  "app_id"
     t.string   "email"
-    t.string   "handle",                  null: false
-    t.string   "sessionId",               null: false
-    t.string   "visitId",                 null: false
-    t.string   "userId",                  null: false
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-    t.integer  "handledUserId", limit: 8, null: false
+    t.string   "handle",     null: false
+    t.string   "sessionId",  null: false
+    t.string   "visitId",    null: false
+    t.string   "userId",     null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "app_identifies", ["app_id"], name: "index_app_identifies_on_app_id", using: :btree

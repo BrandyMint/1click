@@ -9,17 +9,17 @@ class ActiveSupport::TestCase
   fixtures :all
 
   def setup
-    DatabaseCleaner.start
-    conn = ROM.env.gateways[:default].connection
-    DatabaseCleaner[:sequel, connection: conn].strategy = :transaction
-    DatabaseCleaner[:sequel, connection: conn].clean_with(:truncation)
+    #DatabaseCleaner.start
+    # conn = ROM.env.gateways[:default].connection
+    # DatabaseCleaner[:sequel, connection: conn].strategy = :transaction
+    # DatabaseCleaner[:sequel, connection: conn].clean_with(:truncation)
   end
 
   def teardown
-    conn = ROM.env.gateways[:default].connection
+    #conn = ROM.env.gateways[:default].connection
 
     # DatabaseCleaner[:sequel, connection: conn].clean #ing { example.run }
-    DatabaseCleaner.clean
+    #DatabaseCleaner.clean
   end
   # Add more helper methods to be used by all tests here...
 end

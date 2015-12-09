@@ -1,46 +1,51 @@
 class AppIdentifyCreator
-  def self.create(app_id:, userId:, visitId:, sessionId:)
-    new(app_id: app_id, userId: userId, visitId: visitId, sessionId: sessionId)
+  def self.create(identify)
+    identified_user = AppIdentifiedUsersRepository
+      .new(ROM.env)
+      .find_or_create(identify)
+
+    identify = ROM.env
+      .command(:app_identifies)
+      .as(:app_identify)
       .create
+      .call identify
+
+    identified_user.userId
   end
 
-  def initialize(app_id:, userId: ,visitId:, sessionId:)
-    @app_id = app_id
-    @userId = userId
-    @visitId = visitId
-    @sessionId = sessionId
+  def initialize(identify)
+    @identify = identify
   end
 
   def create
-    user = relations(:app_identified_users)
-      .find_by_handle(app_id, handle)
-
-    if user
-      handledUserId = user.userId
-    else
-      commands(:app_identified_users).create.call app_id: app_id, handle: handle, userId: userId
-      handledUserId = userId
-    end
-
-    commands(:app_identifies).create
-      .call(
-      app_id:    app_id,
-      sessionId: sessionId,
-      visitId:   visitId,
-      userId:    userId,
-      handledUserId: handledUserId
-    )
+    find_identified_user_id || create_identified_user_id
+    identified_user
   end
 
   private
 
-  attr_reader :app_id, :userId, :visitId, :sessionId
+  attr_reader :identify
 
-  def commands(cmd)
-    ROM.env.commands(cmd)
+  delegate :handle, :app_id, to: :identify
+
+  def save_identify
+    db[:app_identifies].insert identify.to_h
   end
 
-  def relations(rel)
-    ROM.env.relations(rel)
+  def identified_user
+    AppIdentifiedUser.new identify
+  end
+
+  def find_identified_user_id
+    db[:app_identified_users].select(:userId).where(handle: handle, app_id: app_id).first[:userId]
+  end
+
+  def create_identified_user_id
+    db[:app_identified_users].insert identified_user.to_h
+    identify.userId
+  end
+
+  def db
+    ROM.env.gateways[:default].connection
   end
 end

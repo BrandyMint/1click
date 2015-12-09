@@ -11,10 +11,9 @@ Rails.application.routes.draw do
 
   resource :snippet, controller: :snippet
   post :form, controller: :welcome
-
+  get :a, controller: :receiver, action: :create
 
   scope constraints: RootConstraint do
-    get :a, controller: :receiver, action: :create
 
     get :login, controller: :sessions, action: :new
     post :login, controller: :sessions, action: :create
