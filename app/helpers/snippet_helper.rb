@@ -25,7 +25,11 @@ module SnippetHelper
   end
 
   def snippet_api_url
-    api_url + 'identify'
+    if Rails.env.production?
+      # 'http://cdn.1clickanalytics.ru/a.gif'
+    else
+      'api.3009.vkontraste.ru/v1/identify'
+    end
   end
 
   def snippet_request_url
@@ -38,9 +42,9 @@ module SnippetHelper
 
   def snippet_src
     if Rails.env.production?
-      'http://1clickanalytics.ru/widget.js'
+      'http://1clickanalytics.ru/widget.dev.js'
     else
-      '/widget.js'
+      '/widget.dev.js'
     end
     # "https://rawgit.com/BrandyMint/aristotel/master/dist/art.js"
   end

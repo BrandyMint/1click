@@ -7,6 +7,6 @@ class AppMapper < ROM::Mapper
   #
   model App
   #
-  # attribute :name
+  # attribute :title
   # attribute :email
 end

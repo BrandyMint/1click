@@ -2,7 +2,7 @@ class App
   include ROM::Model::Attributes
 
   attribute :id,                      Integer
-  attribute :title,                   String
+  # attribute :title,                   String
   attribute :event_definitions_count, Integer, default: 0
   attribute :account_id,              Integer
 

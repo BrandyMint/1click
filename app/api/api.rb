@@ -15,21 +15,26 @@ class API < Grape::API
 
   resource :identify do
     desc 'identify'
+    helpers do
+      def identify
+        @identify ||= AppIdentify.new app_id: params[:a], handle: params[:h], userId: params[:u], sessionId: params[:s], visitId: params[:v], email: params[:e]
+      end
+    end
     params do
       requires :callback, type: String, desc: 'jsonp callback'
-      requires :a, type: Integer
-      requires :u, type: Integer
+      optional :a, type: Integer
+      optional :u, type: Integer
       optional :v, type: Integer, desc: 'Обазятельный и передается параметром, но кривой grape упорно хочет его видеть в path'
-      requires :s, type: Integer
+      optional :s, type: Integer
       optional :k, type: String
-      requires :h, type: String, desc: 'handle'
-      requires :e, type: String, desc: 'email'
+      optional :h, type: String, desc: 'handle'
+      optional :e, type: String, desc: 'email'
       optional :tm, type: Integer
     end
     get do
-      identify = AppIdentify.new app_id: app_id, handle: handle, userId: userId, sessionId: sessionId, visitId: visitId, email: email
-      newUserId = AppIdentifyCreator.create! identify
-      "window.#{params.callback}({uid: #{newUserId}});"
+      # TODO обрабатывать остальные параметры в k
+      newUserId = AppIdentifyCreator.create identify
+      "window.#{params[:callback]}({uid: #{newUserId}});"
     end
   end
 

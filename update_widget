@@ -1,2 +1,3 @@
 A=date
 curl https://raw.githubusercontent.com/BrandyMint/aristotel/master/dist/art.js?a=$A > public/widget.js
+curl https://raw.githubusercontent.com/BrandyMint/aristotel/master/dist/art.dev.js?a=$A > public/widget.dev.js
