@@ -27,6 +27,10 @@ class VisitEventEntity < BaseEventEntity
     e
   end
 
+  def domain
+    super.to_s.downcase
+  end
+
   def user?
     type == '0'
   end

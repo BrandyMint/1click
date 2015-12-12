@@ -16,23 +16,33 @@ class API < Grape::API
   resource :identify do
     desc 'identify'
     helpers do
+      def data
+        Sequel::Postgres::HStore.new params.except(:m, :a, :h, :u, :s, :v, :e, :route_info, :callback)
+      end
+
       def identify
-        @identify ||= AppIdentify.new app_id: params[:a], handle: params[:h], userId: params[:u], sessionId: params[:s], visitId: params[:v], email: params[:e]
+        @identify ||= AppIdentify.new(
+          app_id: params[:a],
+          handle: params[:h],
+          userId: params[:u],
+          sessionId: params[:s],
+          visitId: params[:v],
+          email: params[:e],
+          data: data
+        )
       end
     end
     params do
       requires :callback, type: String, desc: 'jsonp callback'
+      optional :m, type: String, desc: 'platfowm'
       optional :a, type: Integer
       optional :u, type: Integer
       optional :v, type: Integer, desc: 'Обазятельный и передается параметром, но кривой grape упорно хочет его видеть в path'
       optional :s, type: Integer
-      optional :k, type: String
       optional :h, type: String, desc: 'handle'
       optional :e, type: String, desc: 'email'
-      optional :tm, type: Integer
     end
     get do
-      # TODO обрабатывать остальные параметры в k
       newUserId = AppIdentifyCreator.create identify
       "window.#{params[:callback]}({uid: #{newUserId}});"
     end

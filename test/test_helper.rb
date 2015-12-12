@@ -1,25 +1,28 @@
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
-require 'database_cleaner'
 
-DatabaseCleaner.strategy = :truncation
 class ActiveSupport::TestCase
-  # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
-  fixtures :all
+  include DBTables
 
   def setup
-    #DatabaseCleaner.start
-    # conn = ROM.env.gateways[:default].connection
-    # DatabaseCleaner[:sequel, connection: conn].strategy = :transaction
-    # DatabaseCleaner[:sequel, connection: conn].clean_with(:truncation)
+    super
+    create_app
   end
 
-  def teardown
-    #conn = ROM.env.gateways[:default].connection
-
-    # DatabaseCleaner[:sequel, connection: conn].clean #ing { example.run }
-    #DatabaseCleaner.clean
+  def create_app
+    @account = Account.create host: 'host'
+    @app = App.new id: 1, account_id: @account.id, host: 'host'
+    db[:apps].insert @app.to_h
   end
-  # Add more helper methods to be used by all tests here...
+
+  def run(*args, &block)
+    ROM.env.gateways[:default].connection.transaction(:rollback=>:always, :auto_savepoint=>true){super}
+  end
+
+  private
+
+  def app_id
+    @app.id
+  end
 end

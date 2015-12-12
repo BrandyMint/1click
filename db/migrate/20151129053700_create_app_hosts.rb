@@ -1,7 +1,7 @@
 class CreateAppHosts < ActiveRecord::Migration
   def change
     create_table :app_hosts do |t|
-      t.references :app, index: true, foreign_key: true
+      t.references :app, index: true, foreign_key: true, null: false
       t.string :host, null: false
 
       t.timestamps null: false

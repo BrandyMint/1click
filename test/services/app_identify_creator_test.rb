@@ -4,25 +4,22 @@ require 'test_helper'
 # https://github.com/BrandyMint/aristotel/wiki/Список-отправляемых-полей
 
 class AppIdentifyCreatorTest < ActiveSupport::TestCase
-  def setup
-    super
-    @account = Account.create id: 1, host: 'host'
-    @app = ROM.env.command(:apps).as(:app).create.call App.new id: 1, account_id: 1, host: 'host'
-  end
+  def test_1
+    handle = 'dapi@mail.ru'
+    data1 = Sequel::Postgres::HStore.new name: 'Vasily'
+    identify1 = AppIdentify.new app_id: 1, userId: 2, sessionId: 3, visitId: 4, handle: handle, data: data1
+    userId = AppIdentifyCreator.create identify1
 
-  #def test_1
-    #ai = AppIdentifyCreator
-      #.create AppIdentify.new app_id: 1, userId: 2, sessionId: 3, visitId: 4, handle: 'dapi@mail.ru'
+    data2 = Sequel::Postgres::HStore.new phone: '123'
+    identify2 = AppIdentify.new app_id: 1, userId: 3, sessionId: 4, visitId: 5, handle: handle, data: data2
+    userId2 = AppIdentifyCreator.create identify2
 
-    #ai2 = AppIdentifyCreator
-      #.create AppIdentify.new app_id: 1, userId: 3, sessionId: 4, visitId: 5, handle: 'dapi@mail.ru'
+    user = AppIdentifiedUsersRepository.new(ROM.env).find app_id: 1, handle: handle
 
-    #assert_equal ai, ai2
-  #end
+    user = ROM.env.relations[:app_identified_users].where(app_id: 1, handle: handle).first
 
-  def test_2
-    AppIdentifyCreator
-      .new( AppIdentify.new app_id: 1, userId: 3, sessionId: 4, visitId: 5, handle: 'dapi@mail.ru' )
-      .create
+    assert_equal user[:data], { 'name' => 'Vasily', 'phone' => '123'}
+    assert_equal userId, 2
+    assert_equal userId, userId2, 'так как handle один, то должен вернуться тот-же юзер'
   end
 end

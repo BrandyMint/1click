@@ -1,3 +1,9 @@
-class AppUserIdentify < ActiveRecord::Base
-  belongs_to :app
+class AppUserIdentify
+  include ROM::Model::Attributes
+
+  attribute :app_id,    Integer
+  attribute :visitUserId,     String
+  attribute :handledUserId,    String
+
+  timestamps
 end

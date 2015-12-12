@@ -8,6 +8,9 @@ gem 'pg'
 
 gem 'virtus'
 
+gem 'sequel'
+# gem 'sequel_pg'
+
 gem 'rom'
 gem 'rom-repository'
 gem 'rom-model'
@@ -92,8 +95,6 @@ gem 'inherited_resources'
 gem 'responders'
 gem 'has_scope'
 
-gem 'virtus'
-
 gem 'strip_attributes'
 gem 'counter_culture'
 gem 'slack-notifier'
@@ -111,6 +112,8 @@ gem 'unicorn'
 group :development, :test do
   gem 'database_cleaner'
   gem 'rspec'
+  gem 'minitest'
+  gem 'minitest-rails'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'rspec-rails'
   gem 'rspec-collection_matchers'
@@ -119,6 +122,9 @@ group :development, :test do
   gem 'jist'
   gem 'pry-rails'
   gem 'pry-theme'
+
+  # gem 'minitest-rails'
+  # gem 'minitest-spec-rails'
 
   gem 'pry-pretty-numeric'
   gem 'pry-highlight'
@@ -138,6 +144,7 @@ group :development do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+  gem 'spring-commands-rspec', group: :development
   gem 'listen', '~> 3.0'
   gem 'guard', '> 2.12'
 

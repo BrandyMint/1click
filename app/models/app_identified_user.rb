@@ -5,7 +5,7 @@ class AppIdentifiedUser
   attribute :userId, Integer
   attribute :handle, String
   attribute :email,  String
+  attribute :data,   Sequel::Postgres::HStore
 
   timestamps
-
 end

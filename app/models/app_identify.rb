@@ -7,6 +7,7 @@ class AppIdentify
   attribute :sessionId, Integer
   attribute :visitId,   Integer
   attribute :userId,    Integer
+  attribute :data,      Sequel::Postgres::HStore
 
   timestamps
 end

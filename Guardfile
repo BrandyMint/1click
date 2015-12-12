@@ -31,12 +31,40 @@ guard 'ctags-bundler', :src_path => ["app", "lib"] do
   watch(/^(app|lib|test\/support)\/.*\.rb$/)
   watch('Gemfile.lock')
 end
+group :red_green_refactor, halt_on_fail: true do
+  # guard 'rspec', :parallel => true, :parallel_cli => '-n 2' do
+  #guard :rspec,
+    #cmd: 'spring rspec',
+    #spec_paths: ['spec'],
+    #run_all: { cmd: 'NO_FOCUS=true spring rspec' },
+    #all_on_start: false,
+    #failed_mode: :focus,
+    #debugger: true do
+    #watch(%r{^spec/.+_spec\.rb$})
+    #watch(%r{^lib/(.+)\.rb$}) { |m| "spec/lib/#{m[1]}_spec.rb" }
+    #watch(%r{^spec/spec_helper.rb}) { 'spec' }
 
-guard :minitest do
+    ### Rails example
+    #watch(%r{^app/(.+)\.rb$})                           { |m| "spec/#{m[1]}_spec.rb" }
+    #watch(%r{^app/(.*)(\.erb|\.haml)$})                 { |m| "spec/#{m[1]}#{m[2]}_spec.rb" }
+    #watch(%r{^app/controllers/(.+)_(controller)\.rb$})  { |m| ["spec/routing/#{m[1]}_routing_spec.rb", "spec/#{m[2]}s/#{m[1]}_#{m[2]}_spec.rb", "spec/acceptance/#{m[1]}_spec.rb"] }
+    #watch(%r{^spec/support/(.+)\.rb$})                  { 'spec' }
+    #watch(%r{^config/routes.rb})                           { 'spec/routing' }
+    #watch(%r{^app/controllers/application_controller.rb})  { 'spec/controllers' }
+
+    #### Capybara features specs
+    #watch(%r{^app/views/(.+)/.*\.(erb|haml)$}) { |m| "spec/features/#{m[1]}_spec.rb" }
+
+    ### Turnip features and steps
+    #watch(%r{^spec/acceptance/(.+)\.feature$})
+    #watch(%r{^spec/acceptance/steps/(.+)_steps\.rb$}) { |m| Dir[File.join("**/#{m[1]}.feature")][0] || 'spec/acceptance' }
+  #end
+
+guard :minitest, all_on_start: false do
   # with Minitest::Spec
-  # watch(%r{^spec/(.*)_spec\.rb$})
-  # watch(%r{^lib/(.+)\.rb$})         { |m| "spec/#{m[1]}_spec.rb" }
-  # watch(%r{^spec/spec_helper\.rb$}) { 'spec' }
+  #watch(%r{^spec/(.*)_spec\.rb$})
+  #watch(%r{^lib/(.+)\.rb$})         { |m| "spec/#{m[1]}_spec.rb" }
+  #watch(%r{^spec/spec_helper\.rb$}) { 'spec' }
 
   # Rails 4
   watch(%r{^app/(.+)\.rb$})                               { |m| "test/#{m[1]}_test.rb" }
@@ -48,3 +76,4 @@ guard :minitest do
   watch(%r{^test/.+_test\.rb$})
   watch(%r{^test/test_helper\.rb$}) { 'test' }
 end
+    end
