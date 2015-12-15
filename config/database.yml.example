@@ -51,7 +51,7 @@ test:
   encoding: unicode
   database: 1click_test
   pool: 5
-  username:
+  username: postgres
   password:
 
 staging:
