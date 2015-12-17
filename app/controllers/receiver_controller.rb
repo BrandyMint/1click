@@ -6,7 +6,8 @@ class ReceiverController < ApplicationController
   def create
     # TODO логируем запрос
 
-    EventCreator.create! request
+    # Отключил потому что тормозит
+    # EventCreator.create! request
 
     send_file Rails.root.join("public/r.#{params[:format]}")
   rescue => err
