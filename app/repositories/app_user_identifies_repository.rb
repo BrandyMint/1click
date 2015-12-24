@@ -1,3 +1,3 @@
 class AppUserIdentifiesRepository
-  include Singletone
+  include Singleton
 end
