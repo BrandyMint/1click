@@ -4,11 +4,7 @@ class ReceiverController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def create
-    # TODO логируем запрос
-
-    # Отключил потому что тормозит
-    # EventCreator.create! request
-
+    EventWorker.perform_async user_agent: request.user_agent, query_string: request.query_string
     send_file Rails.root.join("public/r.#{params[:format]}"), filename: "a.#{params[:format]}"
   rescue => err
     Bugsnag.notify err

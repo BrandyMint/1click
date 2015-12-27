@@ -3,13 +3,14 @@ require 'upsert/active_record_upsert'
 class EventCreator
   include Singleton
 
-  def self.create!(request)
-    new(request).create!
+  def self.create!(user_agent:, query_string:)
+    new(user_agent: user_agent, query_string: query_string).create!
   end
 
-  def initialize(request)
-    @request = request
-    @time    = Time.now
+  def initialize(user_agent:, query_string:)
+    @user_agent   = user_agent
+    @query_string = query_string
+    @time         = Time.now
   end
 
   def create!
@@ -20,9 +21,7 @@ class EventCreator
 
   private
 
-  attr_reader :time, :request
-
-  delegate :user_agent, :query_string, to: :request
+  attr_reader :time, :query_string, :user_agent
 
   # {
   # "a"=>["333"],
@@ -36,7 +35,7 @@ class EventCreator
   # }
   #
   def query
-    @query ||= CGI.parse request.query_string
+    @query ||= CGI.parse query_string
   end
 
   def params

@@ -1,8 +1,10 @@
 require 'app_constraint'
 require 'root_constraint'
+require 'sidekiq/web'
 
 Rails.application.routes.draw do
   default_url_options Settings.default_url_options.symbolize_keys
+
 
   scope subdomain: 'api', constraints: { subdomain: 'api' } do
     mount API => '/', as: :api
@@ -14,6 +16,7 @@ Rails.application.routes.draw do
   get :a, controller: :receiver, action: :create
 
   scope constraints: RootConstraint do
+    mount Sidekiq::Web => '/sidekiq'
 
     get :login, controller: :sessions, action: :new
     post :login, controller: :sessions, action: :create

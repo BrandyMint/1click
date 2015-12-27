@@ -86,6 +86,8 @@ gem 'smsc'
 #gem 'sidekiq-unique-jobs'
 #gem 'sidekiq-status'
 # gem 'sidekiq-statsd'
+# gem 'sidekiq-failures', github: 'mhfs/sidekiq-failures'
+gem 'sinatra', require: nil
 gem 'sidekiq'
 #gem 'sidekiq-cron'
 
