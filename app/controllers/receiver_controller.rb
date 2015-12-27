@@ -9,7 +9,7 @@ class ReceiverController < ApplicationController
     # Отключил потому что тормозит
     # EventCreator.create! request
 
-    send_file Rails.root.join("public/r.#{params[:format]}")
+    send_file Rails.root.join("public/r.#{params[:format]}"), filename: "a.#{params[:format]}"
   rescue => err
     Bugsnag.notify err
     send_file Rails.root.join("public/error.#{params[:format]}")
