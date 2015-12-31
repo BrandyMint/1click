@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151212203216) do
+ActiveRecord::Schema.define(version: 20151231142305) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,7 +73,7 @@ ActiveRecord::Schema.define(version: 20151212203216) do
   end
 
   add_index "app_identified_users", ["app_id", "handle"], name: "index_app_identified_users_on_app_id_and_handle", unique: true, using: :btree
-  add_index "app_identified_users", ["app_id", "userId"], name: "index_app_identified_users_on_app_id_and_userId", unique: true, using: :btree
+  add_index "app_identified_users", ["app_id", "userId"], name: "index_app_identified_users_on_app_id_and_userId", using: :btree
   add_index "app_identified_users", ["app_id"], name: "index_app_identified_users_on_app_id", using: :btree
 
   create_table "app_identifies", force: :cascade do |t|
@@ -126,7 +126,7 @@ ActiveRecord::Schema.define(version: 20151212203216) do
     t.datetime "updated_at",              null: false
   end
 
-  add_index "app_user_identifies", ["app_id", "visitUserId"], name: "index_app_user_identifies_on_app_id_and_visitUserId", unique: true, using: :btree
+  add_index "app_user_identifies", ["app_id", "visitUserId"], name: "index_app_user_identifies_on_app_id_and_visitUserId", using: :btree
   add_index "app_user_identifies", ["app_id"], name: "index_app_user_identifies_on_app_id", using: :btree
 
   create_table "app_user_sessions", force: :cascade do |t|

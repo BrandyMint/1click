@@ -6,6 +6,7 @@ class AppIdentifyCreator
   end
 
   def initialize(identify)
+    fail 'Must be a AppIdentify' unless identify.is_a? AppIdentify
     @identify = identify
   end
 
